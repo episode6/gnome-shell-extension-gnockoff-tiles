@@ -54,7 +54,7 @@ Hold **Alt** (reconfigurable in settings) while dragging a window edge to resize
 | **Alt + Resize**        | Trigger Linked Resize       |
 | **Super + Alt + Left / Right** | Move half-width column left / right |
 | **Super + Ctrl + Shift + Left / Right** | Move third-width column left / right |
-| **Super + Ctrl + Alt + Left / Right** | Move two-thirds-width column left / right |
+| **Super + Ctrl + Left / Right** | Move two-thirds-width column left / right |
 
 ## Installation
 

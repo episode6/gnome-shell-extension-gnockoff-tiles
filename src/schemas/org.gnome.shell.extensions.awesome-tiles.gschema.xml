@@ -159,7 +159,7 @@
     </key>
     <key name="shortcut-tile-column-two-thirds-left" type="as">
       <default>
-        <![CDATA[['<Super><Control><Alt>Left']]]>
+        <![CDATA[['<Super><Control>Left']]]>
       </default>
       <summary>Move Two-Thirds-Width Column Left</summary>
       <description>
@@ -168,7 +168,7 @@
     </key>
     <key name="shortcut-tile-column-two-thirds-right" type="as">
       <default>
-        <![CDATA[['<Super><Control><Alt>Right']]]>
+        <![CDATA[['<Super><Control>Right']]]>
       </default>
       <summary>Move Two-Thirds-Width Column Right</summary>
       <description>
