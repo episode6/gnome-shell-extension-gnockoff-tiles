@@ -239,7 +239,7 @@
       </description>
     </key>
     <key name="enable-inner-gaps" type="b">
-      <default>true</default>
+      <default>false</default>
       <summary>Enable Inner Gaps</summary>
       <description>
         Put gaps between windows.
