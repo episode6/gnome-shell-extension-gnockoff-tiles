@@ -34,6 +34,13 @@ export function isRectEqual(lhs, rhs) {
   return lhs.x === rhs.x && lhs.y === rhs.y && lhs.width === rhs.width && lhs.height === rhs.height
 }
 
+export function isRectCloseTo(lhs, rhs, tolerance) {
+  return Math.abs(lhs.x - rhs.x) <= tolerance &&
+    Math.abs(lhs.y - rhs.y) <= tolerance &&
+    Math.abs(lhs.width - rhs.width) <= tolerance &&
+    Math.abs(lhs.height - rhs.height) <= tolerance
+}
+
 export function parseTilingSteps(value, defaultValue) {
   try {
     return value

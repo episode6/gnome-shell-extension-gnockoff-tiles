@@ -697,7 +697,55 @@ export default class AwesomeTilesPreferences extends ExtensionPreferences {
     tileWindowToBottomRightActionRow.add_suffix(tileWindowToBottomRightButton)
     shortcutsGroup.add(tileWindowToBottomRightActionRow)
 
+    const columnRows = [
+      {
+        name: 'shortcut-tile-column-third-left',
+        title: _('Move Third-Width Column Left'),
+        subtitle: _('Make the window a third of the screen wide at full height and move it left through the left, center, and right positions.'),
+      },
+      {
+        name: 'shortcut-tile-column-third-right',
+        title: _('Move Third-Width Column Right'),
+        subtitle: _('Make the window a third of the screen wide at full height and move it right through the left, center, and right positions.'),
+      },
+      {
+        name: 'shortcut-tile-column-half-left',
+        title: _('Move Half-Width Column Left'),
+        subtitle: _('Make the window half of the screen wide at full height and move it left through the left, center, and right positions.'),
+      },
+      {
+        name: 'shortcut-tile-column-half-right',
+        title: _('Move Half-Width Column Right'),
+        subtitle: _('Make the window half of the screen wide at full height and move it right through the left, center, and right positions.'),
+      },
+      {
+        name: 'shortcut-tile-column-two-thirds-left',
+        title: _('Move Two-Thirds-Width Column Left'),
+        subtitle: _('Make the window two thirds of the screen wide at full height and move it left through the left, center, and right positions.'),
+      },
+      {
+        name: 'shortcut-tile-column-two-thirds-right',
+        title: _('Move Two-Thirds-Width Column Right'),
+        subtitle: _('Make the window two thirds of the screen wide at full height and move it right through the left, center, and right positions.'),
+      },
+    ]
+
+    const columnButtons = columnRows.map(({ name, title, subtitle }) => {
+      const button = new Gtk.Button({
+        name,
+        valign: Gtk.Align.CENTER,
+      })
+      const actionRow = new Adw.ActionRow({
+        title,
+        subtitle,
+      })
+      actionRow.add_suffix(button)
+      shortcutsGroup.add(actionRow)
+      return button
+    })
+
     this._bindShortcutSettings(window, settings, [
+      ...columnButtons,
       workspaceSwitchLeftButton,
       workspaceSwitchRightButton,
       workspaceMoveLeftButton,

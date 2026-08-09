@@ -38,12 +38,13 @@ import { osdWindowManager, wm } from 'resource:///org/gnome/shell/ui/main.js';
 import * as windowMover from './windowMover.js';
 import { LinkedResizeHandler } from './linkedResize.js';
 import {
+  COLUMN_MATCH_TOLERANCE,
   GAP_SIZE_MAX,
   GAP_SIZE_PIXEL_MAX,
   TILING_STEPS_CENTER,
   TILING_STEPS_SIDE,
 } from './constants.js'
-import { isRectEqual, parseTilingSteps } from './utils.js'
+import { isRectCloseTo, isRectEqual, parseTilingSteps } from './utils.js'
 
 const DESKTOP_WM_WORKSPACE_KEYBINDINGS = [
   { key: 'switch-to-workspace-left', setting: 'shortcut-workspace-switch-left' },
@@ -86,6 +87,12 @@ export default class AwesomeTilesExtension extends Extension {
     this._bindShortcut("shortcut-tile-window-to-bottom", this._tileWindowBottom.bind(this))
     this._bindShortcut("shortcut-tile-window-to-bottom-left", this._tileWindowBottomLeft.bind(this))
     this._bindShortcut("shortcut-tile-window-to-bottom-right", this._tileWindowBottomRight.bind(this))
+    this._bindShortcut("shortcut-tile-column-third-left", this._tileColumnThirdLeft.bind(this))
+    this._bindShortcut("shortcut-tile-column-third-right", this._tileColumnThirdRight.bind(this))
+    this._bindShortcut("shortcut-tile-column-half-left", this._tileColumnHalfLeft.bind(this))
+    this._bindShortcut("shortcut-tile-column-half-right", this._tileColumnHalfRight.bind(this))
+    this._bindShortcut("shortcut-tile-column-two-thirds-left", this._tileColumnTwoThirdsLeft.bind(this))
+    this._bindShortcut("shortcut-tile-column-two-thirds-right", this._tileColumnTwoThirdsRight.bind(this))
     this._bindShortcut("shortcut-increase-gap-size", this._increaseGapSize.bind(this))
     this._bindShortcut("shortcut-decrease-gap-size", this._decreaseGapSize.bind(this))
 
@@ -510,20 +517,7 @@ export default class AwesomeTilesExtension extends Extension {
       if (!top) y += (workArea.height - height) / (bottom ? 1 : 2)
 
       if (this._isInnerGapsEnabled) {
-        let innerGapX, innerGapY
-        if (this._isIndividualGapSizesEnabled) {
-          const innerGap = this._gapSizeInner
-          if (this._isGapSizeInPixels) {
-            innerGapX = innerGap
-            innerGapY = innerGap
-          } else {
-            innerGapX = Math.round(innerGap / 200 * workArea.width)
-            innerGapY = Math.round(innerGap / 200 * workArea.height)
-          }
-        } else {
-          innerGapX = workArea.gaps?.x ?? 0
-          innerGapY = workArea.gaps?.y ?? 0
-        }
+        const { x: innerGapX, y: innerGapY } = this._computeInnerGaps(workArea)
         if (left !== right) {
           if (right) x += innerGapX / 2
           width -= innerGapX / 2
@@ -541,6 +535,109 @@ export default class AwesomeTilesExtension extends Extension {
     height = Math.round(height)
 
     return { x, y, width, height }
+  }
+
+  _computeInnerGaps(workArea) {
+    if (this._isIndividualGapSizesEnabled) {
+      const innerGap = this._gapSizeInner
+      if (this._isGapSizeInPixels) {
+        return { x: innerGap, y: innerGap }
+      }
+      return {
+        x: Math.round(innerGap / 200 * workArea.width),
+        y: Math.round(innerGap / 200 * workArea.height),
+      }
+    }
+    return { x: workArea.gaps?.x ?? 0, y: workArea.gaps?.y ?? 0 }
+  }
+
+  _computeColumnRects(workArea, widthFraction) {
+    const width = workArea.width * widthFraction
+    const positions = [
+      workArea.x,
+      workArea.x + (workArea.width - width) / 2,
+      workArea.x + workArea.width - width,
+    ]
+    const innerGapX = this._isInnerGapsEnabled ? this._computeInnerGaps(workArea).x : 0
+
+    return positions.map((x, index) => {
+      let rectX = x
+      let rectWidth = width
+      if (index > 0) {
+        rectX += innerGapX / 2
+        rectWidth -= innerGapX / 2
+      }
+      if (index < positions.length - 1) {
+        rectWidth -= innerGapX / 2
+      }
+      return {
+        x: Math.round(rectX),
+        y: Math.round(workArea.y),
+        width: Math.round(rectWidth),
+        height: Math.round(workArea.height),
+      }
+    })
+  }
+
+  _tileWindowColumn(widthFraction, direction) {
+    const window = global.display.get_focus_window()
+    if (!window) return
+
+    const workArea = this._calculateWorkspaceArea(window)
+    const columns = this._computeColumnRects(workArea, widthFraction)
+    const windowRect = window.get_frame_rect()
+
+    const current = columns.findIndex(
+      (rect) => isRectCloseTo(rect, windowRect, COLUMN_MATCH_TOLERANCE)
+    )
+
+    let next
+    if (current !== -1) {
+      next = Math.max(0, Math.min(columns.length - 1, current + direction))
+    } else if (direction < 0) {
+      next = 0
+      for (let i = columns.length - 1; i >= 0; i--) {
+        if (columns[i].x < windowRect.x) {
+          next = i
+          break
+        }
+      }
+    } else {
+      next = columns.length - 1
+      for (let i = 0; i < columns.length; i++) {
+        if (columns[i].x > windowRect.x) {
+          next = i
+          break
+        }
+      }
+    }
+
+    const { x, y, width, height } = columns[next]
+    this._windowMover._setWindowRect(window, x, y, width, height, this._isWindowAnimationEnabled)
+  }
+
+  _tileColumnThirdLeft() {
+    this._tileWindowColumn(1 / 3, -1)
+  }
+
+  _tileColumnThirdRight() {
+    this._tileWindowColumn(1 / 3, 1)
+  }
+
+  _tileColumnHalfLeft() {
+    this._tileWindowColumn(1 / 2, -1)
+  }
+
+  _tileColumnHalfRight() {
+    this._tileWindowColumn(1 / 2, 1)
+  }
+
+  _tileColumnTwoThirdsLeft() {
+    this._tileWindowColumn(2 / 3, -1)
+  }
+
+  _tileColumnTwoThirdsRight() {
+    this._tileWindowColumn(2 / 3, 1)
   }
 
   _tileWindowBottom() {

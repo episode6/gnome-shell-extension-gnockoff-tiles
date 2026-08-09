@@ -121,6 +121,60 @@
         Shortcut to tile the window in focus to bottom right.
       </description>
     </key>
+    <key name="shortcut-tile-column-third-left" type="as">
+      <default>
+        <![CDATA[['<Super><Control><Shift>Left']]]>
+      </default>
+      <summary>Move Third-Width Column Left</summary>
+      <description>
+        Shortcut to make the window a third of the screen wide at full height and move it left through the left, center, and right positions.
+      </description>
+    </key>
+    <key name="shortcut-tile-column-third-right" type="as">
+      <default>
+        <![CDATA[['<Super><Control><Shift>Right']]]>
+      </default>
+      <summary>Move Third-Width Column Right</summary>
+      <description>
+        Shortcut to make the window a third of the screen wide at full height and move it right through the left, center, and right positions.
+      </description>
+    </key>
+    <key name="shortcut-tile-column-half-left" type="as">
+      <default>
+        <![CDATA[['<Super><Control>Left']]]>
+      </default>
+      <summary>Move Half-Width Column Left</summary>
+      <description>
+        Shortcut to make the window half of the screen wide at full height and move it left through the left, center, and right positions.
+      </description>
+    </key>
+    <key name="shortcut-tile-column-half-right" type="as">
+      <default>
+        <![CDATA[['<Super><Control>Right']]]>
+      </default>
+      <summary>Move Half-Width Column Right</summary>
+      <description>
+        Shortcut to make the window half of the screen wide at full height and move it right through the left, center, and right positions.
+      </description>
+    </key>
+    <key name="shortcut-tile-column-two-thirds-left" type="as">
+      <default>
+        <![CDATA[['<Super><Control><Alt>Left']]]>
+      </default>
+      <summary>Move Two-Thirds-Width Column Left</summary>
+      <description>
+        Shortcut to make the window two thirds of the screen wide at full height and move it left through the left, center, and right positions.
+      </description>
+    </key>
+    <key name="shortcut-tile-column-two-thirds-right" type="as">
+      <default>
+        <![CDATA[['<Super><Control><Alt>Right']]]>
+      </default>
+      <summary>Move Two-Thirds-Width Column Right</summary>
+      <description>
+        Shortcut to make the window two thirds of the screen wide at full height and move it right through the left, center, and right positions.
+      </description>
+    </key>
     <key name="shortcut-align-window-to-center" type="as">
       <default>
         <![CDATA[['<Super>KP_0']]]>
