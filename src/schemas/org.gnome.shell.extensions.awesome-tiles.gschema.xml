@@ -6,27 +6,27 @@
       <description>Configure separate gap sizes for each side (top, left, bottom, right) and between windows.</description>
     </key>
     <key name="gap-size-top" type="i">
-      <default>15</default>
+      <default>0</default>
       <summary>Top Gap Size</summary>
       <description>Gap size at the top of the workspace.</description>
     </key>
     <key name="gap-size-left" type="i">
-      <default>15</default>
+      <default>0</default>
       <summary>Left Gap Size</summary>
       <description>Gap size at the left of the workspace.</description>
     </key>
     <key name="gap-size-right" type="i">
-      <default>15</default>
+      <default>0</default>
       <summary>Right Gap Size</summary>
       <description>Gap size at the right of the workspace.</description>
     </key>
     <key name="gap-size-bottom" type="i">
-      <default>15</default>
+      <default>0</default>
       <summary>Bottom Gap Size</summary>
       <description>Gap size at the bottom of the workspace.</description>
     </key>
     <key name="gap-size-inner" type="i">
-      <default>10</default>
+      <default>0</default>
       <summary>Inner Gap Size</summary>
       <description>Gap size between windows.</description>
     </key>
@@ -36,7 +36,7 @@
       <description>Use pixels instead of percentage for gap size.</description>
     </key>
     <key name="gap-size" type="i">
-      <default>15</default>
+      <default>0</default>
       <summary>Gap Between Window and Workspace</summary>
       <description>Percentage to leave out as gap when the window in focus is tiled.</description>
     </key>
@@ -214,7 +214,7 @@
       <description>Add an additional gap at the bottom of the screen to prevent dock overlap.</description>
     </key>
     <key name="bottom-gap-size" type="i">
-      <default>10</default>
+      <default>0</default>
       <summary>Bottom Gap Size</summary>
       <description>Additional gap size at the bottom of the screen in percentage.</description>
     </key>
