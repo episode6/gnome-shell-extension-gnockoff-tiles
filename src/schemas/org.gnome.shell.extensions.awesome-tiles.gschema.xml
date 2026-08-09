@@ -123,7 +123,7 @@
     </key>
     <key name="shortcut-tile-column-third-left" type="as">
       <default>
-        <![CDATA[['<Super><Control><Shift>Left']]]>
+        <![CDATA[['<Control><Alt>Left']]]>
       </default>
       <summary>Move Third-Width Column Left</summary>
       <description>
@@ -132,7 +132,7 @@
     </key>
     <key name="shortcut-tile-column-third-right" type="as">
       <default>
-        <![CDATA[['<Super><Control><Shift>Right']]]>
+        <![CDATA[['<Control><Alt>Right']]]>
       </default>
       <summary>Move Third-Width Column Right</summary>
       <description>
