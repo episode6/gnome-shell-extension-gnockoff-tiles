@@ -44,7 +44,7 @@ import {
   TILING_STEPS_CENTER,
   TILING_STEPS_SIDE,
 } from './constants.js'
-import { isRectCloseTo, isRectEqual, parseTilingSteps } from './utils.js'
+import { isRectCloseTo, isRectEqual, normalizeAccelerator, parseTilingSteps } from './utils.js'
 
 const DESKTOP_WM_WORKSPACE_KEYBINDINGS = [
   { key: 'switch-to-workspace-left', setting: 'shortcut-workspace-switch-left' },
@@ -55,6 +55,10 @@ const DESKTOP_WM_WORKSPACE_KEYBINDINGS = [
 const MUTTER_TILED_KEYBINDINGS = [
   'toggle-tiled-left',
   'toggle-tiled-right',
+]
+const SYSTEM_KEYBINDING_SCHEMAS = [
+  'org.gnome.desktop.wm.keybindings',
+  'org.gnome.mutter.keybindings',
 ]
 export default class AwesomeTilesExtension extends Extension {
   enable() {
@@ -97,6 +101,8 @@ export default class AwesomeTilesExtension extends Extension {
     this._bindShortcut("shortcut-increase-gap-size", this._increaseGapSize.bind(this))
     this._bindShortcut("shortcut-decrease-gap-size", this._decreaseGapSize.bind(this))
 
+    this._clearConflictingSystemKeybindings()
+
     this._linkedResizeHandler.enable()
 
     this._workspaceSettingsConnections = []
@@ -122,6 +128,8 @@ export default class AwesomeTilesExtension extends Extension {
         this._settings.disconnect(connection)
       })
     }
+
+    this._restoreSystemKeybindings()
 
     if (this._settings.get_boolean('override-system-keybindings')) {
         this._resetWorkspaceKeybindings()
@@ -159,6 +167,53 @@ export default class AwesomeTilesExtension extends Extension {
       const gnomeMutterKeybindingSettings = new Gio.Settings({ schema_id: 'org.gnome.mutter.keybindings' })
       DESKTOP_WM_WORKSPACE_KEYBINDINGS.forEach(binding => gnomeDesktopWmKeybindingsSettings.reset(binding.key))
       MUTTER_TILED_KEYBINDINGS.forEach(key => gnomeMutterKeybindingSettings.reset(key))
+    } catch (e) {
+      logError(e)
+    }
+  }
+
+  _clearConflictingSystemKeybindings() {
+    try {
+      const extensionAccels = new Set()
+      this._shortcutsBindingIds.forEach((name) => {
+        this._settings.get_strv(name).forEach((accel) => {
+          extensionAccels.add(normalizeAccelerator(accel))
+        })
+      })
+
+      const saved = JSON.parse(this._settings.get_string('saved-system-keybindings') || '{}')
+
+      SYSTEM_KEYBINDING_SCHEMAS.forEach((schemaId) => {
+        const systemSettings = new Gio.Settings({ schema_id: schemaId })
+        systemSettings.settings_schema.list_keys().forEach((key) => {
+          if (systemSettings.settings_schema.get_key(key).get_value_type().dup_string() !== 'as') return
+
+          const accels = systemSettings.get_strv(key)
+          const kept = accels.filter((accel) => !extensionAccels.has(normalizeAccelerator(accel)))
+          if (kept.length === accels.length) return
+
+          const savedKey = `${schemaId}/${key}`
+          if (!(savedKey in saved)) saved[savedKey] = accels
+          systemSettings.set_strv(key, kept)
+        })
+      })
+
+      this._settings.set_string('saved-system-keybindings', JSON.stringify(saved))
+    } catch (e) {
+      logError(e)
+    }
+  }
+
+  _restoreSystemKeybindings() {
+    try {
+      const saved = JSON.parse(this._settings.get_string('saved-system-keybindings') || '{}')
+      Object.entries(saved).forEach(([savedKey, accels]) => {
+        const separator = savedKey.lastIndexOf('/')
+        const schemaId = savedKey.slice(0, separator)
+        const key = savedKey.slice(separator + 1)
+        new Gio.Settings({ schema_id: schemaId }).set_strv(key, accels)
+      })
+      this._settings.set_string('saved-system-keybindings', '')
     } catch (e) {
       logError(e)
     }

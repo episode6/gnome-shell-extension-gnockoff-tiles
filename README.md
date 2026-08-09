@@ -53,6 +53,8 @@ Hold **Alt** (reconfigurable in settings) while dragging a window edge to resize
 | **Super + KP_Add**      | Increase Gap Size           |
 | **Super + KP_Subtract** | Decrease Gap Size           |
 | **Alt + Resize**        | Trigger Linked Resize       |
+
+On launch, the extension removes any system keybindings (e.g. GNOME's Ctrl + Alt + Left/Right workspace switching) that conflict with the shortcuts configured in the extension, and restores them when the extension is disabled.
 | **Super + Alt + Left / Right** | Move half-width column left / right |
 | **Ctrl + Alt + Left / Right** | Move third-width column left / right |
 | **Super + Ctrl + Left / Right** | Move two-thirds-width column left / right |

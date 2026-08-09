@@ -311,6 +311,11 @@
       <summary>Override system workspace keybindings</summary>
       <description>Override system workspace switching keybindings to match extension shortcuts, preventing conflicts with Numpad 9 and 3 in GNOME 49.</description>
     </key>
+    <key name="saved-system-keybindings" type="s">
+      <default><![CDATA['']]></default>
+      <summary>Saved System Keybindings</summary>
+      <description>Internal storage for system keybindings that were removed at launch because they conflict with extension shortcuts. They are restored when the extension is disabled.</description>
+    </key>
     <key name="shortcut-linked-resize" type="as">
       <default><![CDATA[['<Alt>']]]></default>
       <summary>Linked Resize Modifier</summary>
