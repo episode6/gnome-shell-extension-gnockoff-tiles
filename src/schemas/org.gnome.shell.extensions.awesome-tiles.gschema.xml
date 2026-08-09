@@ -141,7 +141,7 @@
     </key>
     <key name="shortcut-tile-column-half-left" type="as">
       <default>
-        <![CDATA[['<Super><Control>Left']]]>
+        <![CDATA[['<Super><Alt>Left']]]>
       </default>
       <summary>Move Half-Width Column Left</summary>
       <description>
@@ -150,7 +150,7 @@
     </key>
     <key name="shortcut-tile-column-half-right" type="as">
       <default>
-        <![CDATA[['<Super><Control>Right']]]>
+        <![CDATA[['<Super><Alt>Right']]]>
       </default>
       <summary>Move Half-Width Column Right</summary>
       <description>

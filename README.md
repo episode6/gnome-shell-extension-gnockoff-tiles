@@ -52,7 +52,7 @@ Hold **Alt** (reconfigurable in settings) while dragging a window edge to resize
 | **Super + KP_Add**      | Increase Gap Size           |
 | **Super + KP_Subtract** | Decrease Gap Size           |
 | **Alt + Resize**        | Trigger Linked Resize       |
-| **Super + Ctrl + Left / Right** | Move half-width column left / right |
+| **Super + Alt + Left / Right** | Move half-width column left / right |
 | **Super + Ctrl + Shift + Left / Right** | Move third-width column left / right |
 | **Super + Ctrl + Alt + Left / Right** | Move two-thirds-width column left / right |
 
