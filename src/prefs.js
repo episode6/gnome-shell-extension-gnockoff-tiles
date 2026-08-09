@@ -575,6 +575,17 @@ export default class AwesomeTilesPreferences extends ExtensionPreferences {
     alignWindowToCenterActionRow.add_suffix(alignWindowToCenterButton)
     shortcutsGroup.add(alignWindowToCenterActionRow)
 
+    const maximizeWindowButton = new Gtk.Button({
+      name: 'shortcut-maximize-window',
+      valign: Gtk.Align.CENTER,
+    })
+    const maximizeWindowActionRow = new Adw.ActionRow({
+      title: _('Maximize Window'),
+      subtitle: _('Shortcut to resize the active window to fill the workspace, respecting the configured gaps.'),
+    })
+    maximizeWindowActionRow.add_suffix(maximizeWindowButton)
+    shortcutsGroup.add(maximizeWindowActionRow)
+
     const incrementGapSizeButton = new Gtk.Button({
       name: 'shortcut-increase-gap-size',
       valign: Gtk.Align.CENTER,
@@ -752,6 +763,7 @@ export default class AwesomeTilesPreferences extends ExtensionPreferences {
       workspaceMoveRightButton,
       linkedResizeShortcutButton,
       alignWindowToCenterButton,
+      maximizeWindowButton,
       incrementGapSizeButton,
       decreaseGapSizeButton,
       tileWindowToCenterButton,

@@ -87,6 +87,7 @@ export default class AwesomeTilesExtension extends Extension {
     this._bindShortcut("shortcut-tile-window-to-bottom", this._tileWindowBottom.bind(this))
     this._bindShortcut("shortcut-tile-window-to-bottom-left", this._tileWindowBottomLeft.bind(this))
     this._bindShortcut("shortcut-tile-window-to-bottom-right", this._tileWindowBottomRight.bind(this))
+    this._bindShortcut("shortcut-maximize-window", this._maximizeWindow.bind(this))
     this._bindShortcut("shortcut-tile-column-third-left", this._tileColumnThirdLeft.bind(this))
     this._bindShortcut("shortcut-tile-column-third-right", this._tileColumnThirdRight.bind(this))
     this._bindShortcut("shortcut-tile-column-half-left", this._tileColumnHalfLeft.bind(this))
@@ -614,6 +615,21 @@ export default class AwesomeTilesExtension extends Extension {
 
     const { x, y, width, height } = columns[next]
     this._windowMover._setWindowRect(window, x, y, width, height, this._isWindowAnimationEnabled)
+  }
+
+  _maximizeWindow() {
+    const window = global.display.get_focus_window()
+    if (!window) return
+
+    const { x, y, width, height } = this._calculateWorkspaceArea(window)
+    this._windowMover._setWindowRect(
+      window,
+      Math.round(x),
+      Math.round(y),
+      Math.round(width),
+      Math.round(height),
+      this._isWindowAnimationEnabled
+    )
   }
 
   _tileColumnThirdLeft() {

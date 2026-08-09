@@ -177,11 +177,20 @@
     </key>
     <key name="shortcut-align-window-to-center" type="as">
       <default>
-        <![CDATA[['<Super>KP_0', '<Control><Alt>C']]]>
+        <![CDATA[['<Super>KP_0', '<Super><Alt>C']]]>
       </default>
       <summary>Align Window to Center</summary>
       <description>
         Shortcut to align the window in focus to center without resizing it.
+      </description>
+    </key>
+    <key name="shortcut-maximize-window" type="as">
+      <default>
+        <![CDATA[['<Super><Alt>F']]]>
+      </default>
+      <summary>Maximize Window</summary>
+      <description>
+        Shortcut to resize the window in focus to fill the workspace, respecting the configured gaps.
       </description>
     </key>
     <key name="shortcut-increase-gap-size" type="as">

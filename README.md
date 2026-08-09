@@ -48,7 +48,8 @@ Hold **Alt** (reconfigurable in settings) while dragging a window edge to resize
 | **Super + KP_7**        | Tile window to Top Left     |
 | **Super + KP_8**        | Tile window to Top          |
 | **Super + KP_9**        | Tile window to Top Right    |
-| **Super + KP_0** or **Ctrl + Alt + C** | Align window to Center (no resize) |
+| **Super + KP_0** or **Super + Alt + C** | Align window to Center (no resize) |
+| **Super + Alt + F** | Maximize window (fill the workspace) |
 | **Super + KP_Add**      | Increase Gap Size           |
 | **Super + KP_Subtract** | Decrease Gap Size           |
 | **Alt + Resize**        | Trigger Linked Resize       |
