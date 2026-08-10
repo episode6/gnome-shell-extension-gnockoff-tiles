@@ -121,13 +121,76 @@
         Shortcut to tile the window in focus to bottom right.
       </description>
     </key>
+    <key name="shortcut-tile-column-third-left" type="as">
+      <default>
+        <![CDATA[['<Control><Alt>Left']]]>
+      </default>
+      <summary>Move Third-Width Column Left</summary>
+      <description>
+        Shortcut to make the window a third of the screen wide at full height and move it left through the left, center, and right positions.
+      </description>
+    </key>
+    <key name="shortcut-tile-column-third-right" type="as">
+      <default>
+        <![CDATA[['<Control><Alt>Right']]]>
+      </default>
+      <summary>Move Third-Width Column Right</summary>
+      <description>
+        Shortcut to make the window a third of the screen wide at full height and move it right through the left, center, and right positions.
+      </description>
+    </key>
+    <key name="shortcut-tile-column-half-left" type="as">
+      <default>
+        <![CDATA[['<Super><Alt>Left']]]>
+      </default>
+      <summary>Move Half-Width Column Left</summary>
+      <description>
+        Shortcut to make the window half of the screen wide at full height and move it left through the left, center, and right positions.
+      </description>
+    </key>
+    <key name="shortcut-tile-column-half-right" type="as">
+      <default>
+        <![CDATA[['<Super><Alt>Right']]]>
+      </default>
+      <summary>Move Half-Width Column Right</summary>
+      <description>
+        Shortcut to make the window half of the screen wide at full height and move it right through the left, center, and right positions.
+      </description>
+    </key>
+    <key name="shortcut-tile-column-two-thirds-left" type="as">
+      <default>
+        <![CDATA[['<Super><Control>Left']]]>
+      </default>
+      <summary>Move Two-Thirds-Width Column Left</summary>
+      <description>
+        Shortcut to make the window two thirds of the screen wide at full height and move it left through the left, center, and right positions.
+      </description>
+    </key>
+    <key name="shortcut-tile-column-two-thirds-right" type="as">
+      <default>
+        <![CDATA[['<Super><Control>Right']]]>
+      </default>
+      <summary>Move Two-Thirds-Width Column Right</summary>
+      <description>
+        Shortcut to make the window two thirds of the screen wide at full height and move it right through the left, center, and right positions.
+      </description>
+    </key>
     <key name="shortcut-align-window-to-center" type="as">
       <default>
-        <![CDATA[['<Super>KP_0']]]>
+        <![CDATA[['<Super>KP_0', '<Super><Alt>C']]]>
       </default>
       <summary>Align Window to Center</summary>
       <description>
         Shortcut to align the window in focus to center without resizing it.
+      </description>
+    </key>
+    <key name="shortcut-maximize-window" type="as">
+      <default>
+        <![CDATA[['<Super><Alt>F']]]>
+      </default>
+      <summary>Maximize Window</summary>
+      <description>
+        Shortcut to resize the window in focus to fill the workspace, respecting the configured gaps.
       </description>
     </key>
     <key name="shortcut-increase-gap-size" type="as">
@@ -185,7 +248,7 @@
       </description>
     </key>
     <key name="enable-inner-gaps" type="b">
-      <default>true</default>
+      <default>false</default>
       <summary>Enable Inner Gaps</summary>
       <description>
         Put gaps between windows.
@@ -247,6 +310,11 @@
       <default>false</default>
       <summary>Override system workspace keybindings</summary>
       <description>Override system workspace switching keybindings to match extension shortcuts, preventing conflicts with Numpad 9 and 3 in GNOME 49.</description>
+    </key>
+    <key name="saved-system-keybindings" type="s">
+      <default><![CDATA['']]></default>
+      <summary>Saved System Keybindings</summary>
+      <description>Internal storage for system keybindings that were removed at launch because they conflict with extension shortcuts. They are restored when the extension is disabled.</description>
     </key>
     <key name="shortcut-linked-resize" type="as">
       <default><![CDATA[['<Alt>']]]></default>

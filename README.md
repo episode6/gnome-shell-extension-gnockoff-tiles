@@ -14,6 +14,10 @@ The extension uses **Super + Number Pad** by default for quick tiling. Pressing 
 
 ![Tiling Explanation with Shortcuts](tiling_explaintation_with_shortcuts.jpg)
 
+### Column Tiling
+
+Inspired by the [Tiles](https://freemacsoft.net/tiles/) app for macOS, a second set of shortcuts sizes the focused window to full height at a third, half, or two thirds of the screen width and moves it left or right. Pressing the same shortcut repeatedly steps the window through the three column positions: left, center, and right.
+
 ### Linked Resize
 
 Hold **Alt** (reconfigurable in settings) while dragging a window edge to resize all adjacent tiled windows at once.
@@ -23,6 +27,7 @@ Hold **Alt** (reconfigurable in settings) while dragging a window edge to resize
 ## Features
 
 - **Smart Tiling**: Tile windows in 9 different ways using the number pad.
+- **Column Tiling**: Make a window a third, half, or two thirds of the screen wide at full height and step it left or right through the left, center, and right positions (like the Tiles app for macOS).
 - **Dynamic Grid Sizes**: Successive key presses cycle through different tiling sizes (e.g., 50%, 75%, 33%).
 - **Linked Resizing**: Resize adjacent tiled windows simultaneously by holding a modifier key (**Alt** by default).
 - **Customizable Gaps**: Add and adjust gaps around windows and between them to suit your preference.
@@ -43,10 +48,16 @@ Hold **Alt** (reconfigurable in settings) while dragging a window edge to resize
 | **Super + KP_7**        | Tile window to Top Left     |
 | **Super + KP_8**        | Tile window to Top          |
 | **Super + KP_9**        | Tile window to Top Right    |
-| **Super + KP_0**        | Align window to Center      |
+| **Super + KP_0** or **Super + Alt + C** | Align window to Center (no resize) |
+| **Super + Alt + F** | Maximize window (fill the workspace) |
 | **Super + KP_Add**      | Increase Gap Size           |
 | **Super + KP_Subtract** | Decrease Gap Size           |
 | **Alt + Resize**        | Trigger Linked Resize       |
+
+On launch, the extension removes any system keybindings (e.g. GNOME's Ctrl + Alt + Left/Right workspace switching) that conflict with the shortcuts configured in the extension, and restores them when the extension is disabled.
+| **Super + Alt + Left / Right** | Move half-width column left / right |
+| **Ctrl + Alt + Left / Right** | Move third-width column left / right |
+| **Super + Ctrl + Left / Right** | Move two-thirds-width column left / right |
 
 ## Installation
 
