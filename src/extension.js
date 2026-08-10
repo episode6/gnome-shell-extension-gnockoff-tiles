@@ -34,9 +34,10 @@ import Meta from 'gi://Meta'
 import Shell from 'gi://Shell'
 import Gio from 'gi://Gio'
 import { Extension, gettext as _, ngettext } from 'resource:///org/gnome/shell/extensions/extension.js'
-import { osdWindowManager, wm } from 'resource:///org/gnome/shell/ui/main.js';
+import { osdWindowManager, panel, wm } from 'resource:///org/gnome/shell/ui/main.js';
 import * as windowMover from './windowMover.js';
 import { LinkedResizeHandler } from './linkedResize.js';
+import { PanelIndicator } from './panelIndicator.js';
 import {
   COLUMN_MATCH_TOLERANCE,
   GAP_SIZE_MAX,
@@ -81,25 +82,28 @@ export default class AwesomeTilesExtension extends Extension {
       }
     })
 
-    this._bindShortcut("shortcut-align-window-to-center", this._alignWindowToCenter.bind(this))
-    this._bindShortcut("shortcut-tile-window-to-center", this._tileWindowCenter.bind(this))
-    this._bindShortcut("shortcut-tile-window-to-left", this._tileWindowLeft.bind(this))
-    this._bindShortcut("shortcut-tile-window-to-right", this._tileWindowRight.bind(this))
-    this._bindShortcut("shortcut-tile-window-to-top", this._tileWindowTop.bind(this))
-    this._bindShortcut("shortcut-tile-window-to-top-left", this._tileWindowTopLeft.bind(this))
-    this._bindShortcut("shortcut-tile-window-to-top-right", this._tileWindowTopRight.bind(this))
-    this._bindShortcut("shortcut-tile-window-to-bottom", this._tileWindowBottom.bind(this))
-    this._bindShortcut("shortcut-tile-window-to-bottom-left", this._tileWindowBottomLeft.bind(this))
-    this._bindShortcut("shortcut-tile-window-to-bottom-right", this._tileWindowBottomRight.bind(this))
-    this._bindShortcut("shortcut-maximize-window", this._maximizeWindow.bind(this))
-    this._bindShortcut("shortcut-tile-column-third-left", this._tileColumnThirdLeft.bind(this))
-    this._bindShortcut("shortcut-tile-column-third-right", this._tileColumnThirdRight.bind(this))
-    this._bindShortcut("shortcut-tile-column-half-left", this._tileColumnHalfLeft.bind(this))
-    this._bindShortcut("shortcut-tile-column-half-right", this._tileColumnHalfRight.bind(this))
-    this._bindShortcut("shortcut-tile-column-two-thirds-left", this._tileColumnTwoThirdsLeft.bind(this))
-    this._bindShortcut("shortcut-tile-column-two-thirds-right", this._tileColumnTwoThirdsRight.bind(this))
-    this._bindShortcut("shortcut-increase-gap-size", this._increaseGapSize.bind(this))
-    this._bindShortcut("shortcut-decrease-gap-size", this._decreaseGapSize.bind(this))
+    this._bindShortcut("shortcut-align-window-to-center", () => this._alignWindowToCenter())
+    this._bindShortcut("shortcut-tile-window-to-center", () => this._tileWindowCenter())
+    this._bindShortcut("shortcut-tile-window-to-left", () => this._tileWindowLeft())
+    this._bindShortcut("shortcut-tile-window-to-right", () => this._tileWindowRight())
+    this._bindShortcut("shortcut-tile-window-to-top", () => this._tileWindowTop())
+    this._bindShortcut("shortcut-tile-window-to-top-left", () => this._tileWindowTopLeft())
+    this._bindShortcut("shortcut-tile-window-to-top-right", () => this._tileWindowTopRight())
+    this._bindShortcut("shortcut-tile-window-to-bottom", () => this._tileWindowBottom())
+    this._bindShortcut("shortcut-tile-window-to-bottom-left", () => this._tileWindowBottomLeft())
+    this._bindShortcut("shortcut-tile-window-to-bottom-right", () => this._tileWindowBottomRight())
+    this._bindShortcut("shortcut-maximize-window", () => this._maximizeWindow())
+    this._bindShortcut("shortcut-tile-column-third-left", () => this._tileColumnThirdLeft())
+    this._bindShortcut("shortcut-tile-column-third-right", () => this._tileColumnThirdRight())
+    this._bindShortcut("shortcut-tile-column-half-left", () => this._tileColumnHalfLeft())
+    this._bindShortcut("shortcut-tile-column-half-right", () => this._tileColumnHalfRight())
+    this._bindShortcut("shortcut-tile-column-two-thirds-left", () => this._tileColumnTwoThirdsLeft())
+    this._bindShortcut("shortcut-tile-column-two-thirds-right", () => this._tileColumnTwoThirdsRight())
+    this._bindShortcut("shortcut-increase-gap-size", () => this._increaseGapSize())
+    this._bindShortcut("shortcut-decrease-gap-size", () => this._decreaseGapSize())
+
+    this._panelIndicator = new PanelIndicator(this)
+    panel.addToStatusArea(this.uuid, this._panelIndicator)
 
     this._clearConflictingSystemKeybindings()
 
@@ -115,6 +119,11 @@ export default class AwesomeTilesExtension extends Extension {
   }
 
   disable() {
+    if (this._panelIndicator) {
+      this._panelIndicator.destroy()
+      this._panelIndicator = null
+    }
+
     this._windowMover.destroy()
     this._shortcutsBindingIds.forEach((id) => wm.removeKeybinding(id))
 
@@ -219,8 +228,7 @@ export default class AwesomeTilesExtension extends Extension {
     }
   }
 
-  _alignWindowToCenter() {
-    const window = global.display.get_focus_window()
+  _alignWindowToCenter(window = global.display.get_focus_window()) {
     if (!window) return
 
     const windowArea = window.get_frame_rect()
@@ -506,8 +514,7 @@ export default class AwesomeTilesExtension extends Extension {
     return this._settings.get_int("next-step-timeout")
   }
 
-  _tileWindow(top, bottom, left, right) {
-    const window = global.display.get_focus_window()
+  _tileWindow(top, bottom, left, right, window = global.display.get_focus_window()) {
     if (!window) return
 
     const { x, y, width, height } = this._nextWindowRect(window, top, bottom, left, right)
@@ -635,8 +642,7 @@ export default class AwesomeTilesExtension extends Extension {
     })
   }
 
-  _tileWindowColumn(widthFraction, direction) {
-    const window = global.display.get_focus_window()
+  _tileWindowColumn(widthFraction, direction, window = global.display.get_focus_window()) {
     if (!window) return
 
     const workArea = this._calculateWorkspaceArea(window)
@@ -672,8 +678,7 @@ export default class AwesomeTilesExtension extends Extension {
     this._windowMover._setWindowRect(window, x, y, width, height, this._isWindowAnimationEnabled)
   }
 
-  _maximizeWindow() {
-    const window = global.display.get_focus_window()
+  _maximizeWindow(window = global.display.get_focus_window()) {
     if (!window) return
 
     const { x, y, width, height } = this._calculateWorkspaceArea(window)
@@ -687,63 +692,63 @@ export default class AwesomeTilesExtension extends Extension {
     )
   }
 
-  _tileColumnThirdLeft() {
-    this._tileWindowColumn(1 / 3, -1)
+  _tileColumnThirdLeft(window) {
+    this._tileWindowColumn(1 / 3, -1, window)
   }
 
-  _tileColumnThirdRight() {
-    this._tileWindowColumn(1 / 3, 1)
+  _tileColumnThirdRight(window) {
+    this._tileWindowColumn(1 / 3, 1, window)
   }
 
-  _tileColumnHalfLeft() {
-    this._tileWindowColumn(1 / 2, -1)
+  _tileColumnHalfLeft(window) {
+    this._tileWindowColumn(1 / 2, -1, window)
   }
 
-  _tileColumnHalfRight() {
-    this._tileWindowColumn(1 / 2, 1)
+  _tileColumnHalfRight(window) {
+    this._tileWindowColumn(1 / 2, 1, window)
   }
 
-  _tileColumnTwoThirdsLeft() {
-    this._tileWindowColumn(2 / 3, -1)
+  _tileColumnTwoThirdsLeft(window) {
+    this._tileWindowColumn(2 / 3, -1, window)
   }
 
-  _tileColumnTwoThirdsRight() {
-    this._tileWindowColumn(2 / 3, 1)
+  _tileColumnTwoThirdsRight(window) {
+    this._tileWindowColumn(2 / 3, 1, window)
   }
 
-  _tileWindowBottom() {
-    this._tileWindow(false, true, true, true)
+  _tileWindowBottom(window) {
+    this._tileWindow(false, true, true, true, window)
   }
 
-  _tileWindowBottomLeft() {
-    this._tileWindow(false, true, true, false)
+  _tileWindowBottomLeft(window) {
+    this._tileWindow(false, true, true, false, window)
   }
 
-  _tileWindowBottomRight() {
-    this._tileWindow(false, true, false, true)
+  _tileWindowBottomRight(window) {
+    this._tileWindow(false, true, false, true, window)
   }
 
-  _tileWindowCenter() {
-    this._tileWindow(false, false, false, false)
+  _tileWindowCenter(window) {
+    this._tileWindow(false, false, false, false, window)
   }
 
-  _tileWindowLeft() {
-    this._tileWindow(true, true, true, false)
+  _tileWindowLeft(window) {
+    this._tileWindow(true, true, true, false, window)
   }
 
-  _tileWindowRight() {
-    this._tileWindow(true, true, false, true)
+  _tileWindowRight(window) {
+    this._tileWindow(true, true, false, true, window)
   }
 
-  _tileWindowTop() {
-    this._tileWindow(true, false, true, true)
+  _tileWindowTop(window) {
+    this._tileWindow(true, false, true, true, window)
   }
 
-  _tileWindowTopLeft() {
-    this._tileWindow(true, false, true, false)
+  _tileWindowTopLeft(window) {
+    this._tileWindow(true, false, true, false, window)
   }
 
-  _tileWindowTopRight() {
-    this._tileWindow(true, false, false, true)
+  _tileWindowTopRight(window) {
+    this._tileWindow(true, false, false, true, window)
   }
 }
