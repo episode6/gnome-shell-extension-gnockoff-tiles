@@ -71,7 +71,6 @@ class PanelIndicator extends PanelMenu.Button {
   _init(extension) {
     super._init(0.0, _('Awesome Tiles'))
 
-    this._extension = extension
     this._settings = extension._settings
     this._settingsConnections = []
 
@@ -139,7 +138,10 @@ class PanelIndicator extends PanelMenu.Button {
     item.add_child(shortcutLabel)
 
     const update = () => {
-      shortcutLabel.text = formatAccelerator(this._settings.get_strv(settingName)[0])
+      shortcutLabel.text = this._settings.get_strv(settingName)
+        .map(formatAccelerator)
+        .filter(Boolean)
+        .join(', ')
     }
     update()
     this._settingsConnections.push(
