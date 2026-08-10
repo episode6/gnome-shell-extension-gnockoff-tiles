@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends gnome-shell gettext libglib2.0-bin
+
+      - name: Check JavaScript syntax
+        run: |
+          status=0
+          for f in src/*.js; do
+            echo "Checking $f"
+            node --input-type=module --check < "$f" || status=1
+          done
+          exit $status
+
+      - name: Validate GSettings schema
+        run: glib-compile-schemas --strict --dry-run src/schemas
+
+      - name: Compile translations
+        run: |
+          for po in po/*.po; do
+            msgfmt --output-file=/dev/null "$po"
+            echo "OK: $po"
+          done
+
+      - name: Pack extension
+        run: ./install.sh zip
+
+      - name: Upload extension zip
+        uses: actions/upload-artifact@v4
+        with:
+          name: awesome-tiles@velitasali.com.shell-extension
+          path: awesome-tiles@velitasali.com.shell-extension.zip
