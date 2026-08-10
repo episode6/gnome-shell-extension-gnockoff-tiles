@@ -19,6 +19,7 @@ function pack-extension {
         --extra-source="utils.js" \
         --extra-source="windowMover.js" \
         --extra-source="linkedResize.js" \
+        --extra-source="panelIndicator.js" \
         --extra-source="prefs-shortcut-dialog.ui" \
         --extra-source="../icon.svg" \
         --extra-source="../LICENSE"
