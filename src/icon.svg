@@ -1,1 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" height="128px" viewBox="0 -960 960 960" width="128px" fill="#BDBDBD"><path d="M600-160v-280h280v280H600ZM440-520v-280h440v280H440ZM80-160v-280h440v280H80Zm0-360v-280h280v280H80Zm440-80h280v-120H520v120ZM160-240h280v-120H160v120Zm520 0h120v-120H680v120ZM160-600h120v-120H160v120Zm360 0Zm-80 240Zm240 0ZM280-600Z"/></svg>
+<svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <!--
+    Gnockoff Tiles: a tidy tiling layout with one tile that refuses to line up
+    - the knockoff in the pile.
+  -->
+  <defs>
+    <linearGradient id="gnockoff-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#9141ac"/>
+      <stop offset="1" stop-color="#613583"/>
+    </linearGradient>
+  </defs>
+  <rect x="6" y="6" width="116" height="116" rx="26" fill="url(#gnockoff-bg)"/>
+  <rect x="24" y="24" width="48" height="48" rx="7" fill="#f6f5f4"/>
+  <rect x="24" y="80" width="80" height="24" rx="7" fill="#f6f5f4"/>
+  <rect x="80" y="24" width="24" height="48" rx="7" fill="#ffbe6f"
+        transform="rotate(12 92 48)"/>
+</svg>

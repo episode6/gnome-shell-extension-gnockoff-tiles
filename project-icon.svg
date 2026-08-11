@@ -1,12 +1,17 @@
 <svg width="128" height="128" viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <!--
+    Gnockoff Tiles: a tidy tiling layout with one tile that refuses to line up
+    - the knockoff in the pile. Designed to stay legible at 16px.
+  -->
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#2563eb"/>
-      <stop offset="1" stop-color="#7c3aed"/>
+    <linearGradient id="gnockoff-bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#9141ac"/>
+      <stop offset="1" stop-color="#613583"/>
     </linearGradient>
   </defs>
-  <rect x="8" y="8" width="112" height="112" rx="24" fill="url(#bg)"/>
-  <rect x="24" y="24" width="44" height="80" rx="8" fill="#ffffff" opacity="0.92"/>
-  <rect x="76" y="24" width="28" height="36" rx="8" fill="#ffffff" opacity="0.92"/>
-  <rect x="76" y="68" width="28" height="36" rx="8" fill="#ffffff" opacity="0.92"/>
+  <rect x="6" y="6" width="116" height="116" rx="26" fill="url(#gnockoff-bg)"/>
+  <rect x="24" y="24" width="48" height="48" rx="7" fill="#f6f5f4"/>
+  <rect x="24" y="80" width="80" height="24" rx="7" fill="#f6f5f4"/>
+  <rect x="80" y="24" width="24" height="48" rx="7" fill="#ffbe6f"
+        transform="rotate(12 92 48)"/>
 </svg>
