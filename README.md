@@ -1,6 +1,8 @@
-## <img src="src/icon.svg" alt="awesome-tiles-icon" width="24"/> Awesome Tiles
+## <img src="src/icon.svg" alt="gnockoff-tiles-icon" width="24"/> Gnockoff Tiles
 
-Awesome Tiles is a tiling manager extension for GNOME Shell that makes it easy to move
+A knockoff of the [Tiles](https://freemacsoft.net/tiles/) app for macOS, for GNOME.
+
+Gnockoff Tiles is a tiling manager extension for GNOME Shell that makes it easy to move
 windows around with precision. It does that with reconfigurable keyboard shortcuts
 which are set to keys on the number pad by default.
 
@@ -53,28 +55,28 @@ Hold **Alt** (reconfigurable in settings) while dragging a window edge to resize
 | **Super + KP_Add**      | Increase Gap Size           |
 | **Super + KP_Subtract** | Decrease Gap Size           |
 | **Alt + Resize**        | Trigger Linked Resize       |
-
-On launch, the extension removes any system keybindings (e.g. GNOME's Ctrl + Alt + Left/Right workspace switching) that conflict with the shortcuts configured in the extension, and restores them when the extension is disabled.
 | **Super + Alt + Left / Right** | Move half-width column left / right |
 | **Ctrl + Alt + Left / Right** | Move third-width column left / right |
 | **Super + Ctrl + Left / Right** | Move two-thirds-width column left / right |
 
+On launch, the extension removes any system keybindings (e.g. GNOME's Ctrl + Alt + Left/Right workspace switching) that conflict with the shortcuts configured in the extension, and restores them when the extension is disabled.
+
 ## Installation
 
-### From GNOME Extensions (Recommended)
+### From GNOME Extensions
 
-1. Go to <https://extensions.gnome.org/extension/4702/awesome-tiles/>
-2. Install and Enable.
+Not yet available — the extensions.gnome.org listing is pending submission and
+review. Install from source in the meantime.
 
 ### From source code
 
 1.  **Clone the repository**:
     ```bash
-    git clone https://github.com/velitasali/gnome-shell-extension-awesome-tiles.git
+    git clone https://github.com/episode6/gnome-shell-extension-gnockoff-tiles.git
     ```
 2.  **Navigate into the folder**:
     ```bash
-    cd gnome-shell-extension-awesome-tiles
+    cd gnome-shell-extension-gnockoff-tiles
     ```
 3.  **Run the local installation command**:
     ```bash
@@ -151,6 +153,12 @@ The `start-dev.sh` script includes an integrated watcher that monitors the `src/
 
 ## Credits
 
+Gnockoff Tiles is maintained by [episode6](https://github.com/episode6).
+
+It is a fork of [Awesome Tiles](https://github.com/velitasali/gnome-shell-extension-awesome-tiles)
+by Pim Snel, Veli Tasalı, Samet Güzeldemirci, and its contributors — Gnockoff Tiles
+would not exist without their work. Awesome Tiles in turn credits:
+
 - [Useless Gaps](https://github.com/mipmip/gnome-shell-extensions-useless-gaps)
 - [Night Theme Switcher](https://gitlab.com/rmnvgr/nightthemeswitcher-gnome-shell-extension)
 
@@ -158,7 +166,7 @@ The `start-dev.sh` script includes an integrated watcher that monitors the `src/
 
 ### Translation
 
-Create a copy of `po/awesome-tiles@velitasali.com.pot` in the **same directory** and name it
+Create a copy of `po/gnockoff-tiles@episode6.com.pot` in the **same directory** and name it
 as follows:
 
 - `<LANGUAGE_CODE>.po` for a language.

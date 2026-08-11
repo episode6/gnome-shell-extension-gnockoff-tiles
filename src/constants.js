@@ -2,6 +2,7 @@
  * Copyright (C) 2021 Pim Snel (https://github.com/mipmip)
  * Copyright (C) 2021 Veli Tasalı (https://github.com/velitasali)
  * Copyright (C) 2026 Samet Güzeldemirci (https://github.com/samex)
+ * Copyright (C) 2026 episode6 (https://github.com/episode6)
  *
  * Contributors:
  * - qwreey (https://github.com/qwreey)

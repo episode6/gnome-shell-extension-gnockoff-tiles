@@ -10,7 +10,7 @@ services:
       - PGID=1000
     volumes:
       # Mount your source code
-      - ./src:/home/abc/.local/share/gnome-shell/extensions/awesome-tiles@velitasali.com
+      - ./src:/home/abc/.local/share/gnome-shell/extensions/gnockoff-tiles@episode6.com
       # Mount the dev script
       - ./dev.sh:/home/abc/dev.sh
     ports:

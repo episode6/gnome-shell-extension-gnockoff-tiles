@@ -7,7 +7,7 @@ if [ "$UID" = "0" ]; then
     exit 101
 fi
 
-NAME=awesome-tiles\@velitasali.com
+NAME=gnockoff-tiles\@episode6.com
 
 function pack-extension {
     echo "Packing extension..."
@@ -21,20 +21,11 @@ function pack-extension {
         --extra-source="linkedResize.js" \
         --extra-source="panelIndicator.js" \
         --extra-source="prefs-shortcut-dialog.ui" \
-        --extra-source="../icon.svg" \
+        --extra-source="icon.svg" \
         --extra-source="../LICENSE"
 }
 
-function compile-preferences {
-    if [ -d src/resources ]; then
-        echo 'Compiling resources...'
-        glib-compile-resources --sourcedir=src/resources \
-            --target=src/resources/prefs.gresource \
-            src/resources/org.gnome.shell.extensions.awesome-tiles.prefs.gresource.xml
-    else
-        echo 'No resources to compile... Skipping'
-    fi
-
+function compile-schemas {
     if [ -d src/schemas ]; then
         echo 'Compiling schemas...'
         glib-compile-schemas --targetdir=src/schemas src/schemas
@@ -72,13 +63,13 @@ function update-po() {
 
 case "$1" in
     "local-install" )
-        compile-preferences
+        compile-schemas
         pack-extension
         gnome-extensions install --force $NAME.shell-extension.zip && restart-shell
     ;;
     
     "zip" )
-        compile-preferences
+        compile-schemas
         pack-extension
     ;;
 

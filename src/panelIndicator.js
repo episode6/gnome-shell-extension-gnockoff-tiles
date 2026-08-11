@@ -2,6 +2,7 @@
  * Copyright (C) 2021 Pim Snel (https://github.com/mipmip)
  * Copyright (C) 2021 Veli Tasalı (https://github.com/velitasali)
  * Copyright (C) 2026 Samet Güzeldemirci (https://github.com/samex)
+ * Copyright (C) 2026 episode6 (https://github.com/episode6)
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -69,7 +70,7 @@ function formatAccelerator(accel) {
 export const PanelIndicator = GObject.registerClass(
 class PanelIndicator extends PanelMenu.Button {
   _init(extension) {
-    super._init(0.0, _('Awesome Tiles'))
+    super._init(0.0, _('Gnockoff Tiles'))
 
     this._settings = extension._settings
     this._settingsConnections = []
@@ -135,7 +136,7 @@ class PanelIndicator extends PanelMenu.Button {
     item.label.x_expand = true
 
     const shortcutLabel = new St.Label({
-      style_class: 'awesome-tiles-shortcut-label',
+      style_class: 'gnockoff-tiles-shortcut-label',
       y_align: Clutter.ActorAlign.CENTER,
       opacity: 128,
     })

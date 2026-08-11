@@ -2,6 +2,7 @@
  * Copyright (C) 2021 Pim Snel (https://github.com/mipmip)
  * Copyright (C) 2021 Veli Tasalı (https://github.com/velitasali)
  * Copyright (C) 2026 Samet Güzeldemirci (https://github.com/samex)
+ * Copyright (C) 2026 episode6 (https://github.com/episode6)
  *
  * Contributors:
  * - qwreey (https://github.com/qwreey)
@@ -46,7 +47,7 @@ import {
   INDIVIDUAL_GAP_SIZE_PIXEL_MAX,
 } from './constants.js'
 
-export default class AwesomeTilesPreferences extends ExtensionPreferences {
+export default class GnockoffTilesPreferences extends ExtensionPreferences {
   fillPreferencesWindow(window) {
     const settings = this.getSettings()
     
@@ -853,14 +854,14 @@ export default class AwesomeTilesPreferences extends ExtensionPreferences {
     iconBox.append(icon)
 
     const nameLabel = new Gtk.Label({
-      label: 'Awesome Tiles',
+      label: 'Gnockoff Tiles',
       css_classes: ['title-1'],
       halign: Gtk.Align.CENTER,
     })
     iconBox.append(nameLabel)
 
     const descriptionLabel = new Gtk.Label({
-      label: _('A powerful tiling manager for GNOME Shell. Precision tile windows into 9 positions using the number pad, enjoy dynamic grid sizes that cycle on repeated keystrokes, and experience seamless linked resizing for adjacent windows. Includes customizable gaps, center alignment, and integrated workspace navigation.'),
+      label: _('A knockoff of the macOS Tiles app, for GNOME. Tile windows into columns or into 9 positions using the number pad, cycle through grid sizes on repeated keystrokes, and resize adjacent tiled windows together. Includes customizable gaps, center alignment, and integrated workspace navigation.'),
       wrap: true,
       justify: Gtk.Justification.CENTER,
       max_width_chars: 60,
@@ -871,14 +872,30 @@ export default class AwesomeTilesPreferences extends ExtensionPreferences {
     // Add the header box directly to the group instead of using set_header_child
     aboutGroup.add(iconBox)
 
+    const maintainerGroup = new Adw.PreferencesGroup({
+      title: _('Maintainer'),
+    })
+    aboutPage.add(maintainerGroup)
+
+    const maintainerRow = new Adw.ActionRow({
+      title: 'episode6',
+      activatable: true,
+    })
+    maintainerRow.add_suffix(new Gtk.Image({ icon_name: 'external-link-symbolic' }))
+    maintainerRow.connect('activated', () => {
+      Gtk.show_uri(null, 'https://github.com/episode6', Gdk.CURRENT_TIME)
+    })
+    maintainerGroup.add(maintainerRow)
+
     const authorsGroup = new Adw.PreferencesGroup({
-      title: _('Authors'),
+      title: _('Upstream Authors (Awesome Tiles)'),
     })
     aboutPage.add(authorsGroup)
 
     const authors = [
       { name: 'Pim Snel', role: _('Original Author'), link: 'https://github.com/mipmip' },
       { name: 'Veli Tasalı', role: _('Author'), link: 'https://github.com/velitasali' },
+      { name: 'Samet Güzeldemirci', role: _('Author'), link: 'https://github.com/samex' },
     ]
 
     authors.forEach(author => {
@@ -895,13 +912,12 @@ export default class AwesomeTilesPreferences extends ExtensionPreferences {
     })
 
     const contributorsGroup = new Adw.PreferencesGroup({
-      title: _('Contributors'),
+      title: _('Upstream Contributors (Awesome Tiles)'),
     })
     aboutPage.add(contributorsGroup)
 
     const contributors = [
       { name: 'qwreey', link: 'https://github.com/qwreey' },
-      { name: 'Samet Güzeldemirci', role: _('Contributor'), link: 'https://github.com/samex' },
       { name: 'mhecher-sc', link: 'https://github.com/mhecher-sc' },
       { name: 'FedericoCalzoni', link: 'https://github.com/FedericoCalzoni' },
       { name: 'Dolland', link: 'https://github.com/Dolland' },
@@ -936,19 +952,23 @@ export default class AwesomeTilesPreferences extends ExtensionPreferences {
     })
     ghRow.add_suffix(new Gtk.Image({ icon_name: 'external-link-symbolic' }))
     ghRow.connect('activated', () => {
-      Gtk.show_uri(null, 'https://github.com/velitasali/gnome-shell-extension-awesome-tiles', Gdk.CURRENT_TIME)
+      Gtk.show_uri(null, 'https://github.com/episode6/gnome-shell-extension-gnockoff-tiles', Gdk.CURRENT_TIME)
     })
     linksGroup.add(ghRow)
 
-    const egoRow = new Adw.ActionRow({
-      title: _('GNOME Extensions Page'),
+    // TODO: restore the "GNOME Extensions Page" row once the Gnockoff Tiles
+    // listing exists on extensions.gnome.org — it is a new submission, not the
+    // upstream Awesome Tiles listing.
+
+    const upstreamRow = new Adw.ActionRow({
+      title: _('Upstream Project (Awesome Tiles)'),
       activatable: true,
     })
-    egoRow.add_suffix(new Gtk.Image({ icon_name: 'external-link-symbolic' }))
-    egoRow.connect('activated', () => {
-      Gtk.show_uri(null, 'https://extensions.gnome.org/extension/4702/awesome-tiles/', Gdk.CURRENT_TIME)
+    upstreamRow.add_suffix(new Gtk.Image({ icon_name: 'external-link-symbolic' }))
+    upstreamRow.connect('activated', () => {
+      Gtk.show_uri(null, 'https://github.com/velitasali/gnome-shell-extension-awesome-tiles', Gdk.CURRENT_TIME)
     })
-    linksGroup.add(egoRow)
+    linksGroup.add(upstreamRow)
 
     return aboutPage
   }

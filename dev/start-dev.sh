@@ -3,8 +3,8 @@
 # --- Configuration ---
 IMAGE_NAME="gnome49-local"
 CONTAINER_NAME="x11docker-gnome-dev"
-EXTENSION_UUID="awesome-tiles@velitasali.com"
-SCHEMA_ID="org.gnome.shell.extensions.awesome-tiles"
+EXTENSION_UUID="gnockoff-tiles@episode6.com"
+SCHEMA_ID="org.gnome.shell.extensions.gnockoff-tiles"
 
 # Resolved Paths
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

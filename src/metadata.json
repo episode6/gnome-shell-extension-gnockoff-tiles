@@ -1,8 +1,8 @@
 {
-  "description": "A powerful tiling manager for GNOME Shell. Precision tile windows into 9 positions using the number pad, enjoy dynamic grid sizes that cycle on repeated keystrokes, and experience seamless linked resizing for adjacent windows. Includes customizable gaps, center alignment, and integrated workspace navigation.",
-  "gettext-domain": "awesome-tiles@velitasali.com",
-  "name": "Awesome Tiles",
-  "settings-schema": "org.gnome.shell.extensions.awesome-tiles",
+  "description": "A knockoff of the macOS Tiles app, for GNOME. Tile windows into columns or into 9 positions using the number pad, cycle through grid sizes on repeated keystrokes, and resize adjacent tiled windows together. Includes customizable gaps, center alignment, and integrated workspace navigation.",
+  "gettext-domain": "gnockoff-tiles@episode6.com",
+  "name": "Gnockoff Tiles",
+  "settings-schema": "org.gnome.shell.extensions.gnockoff-tiles",
   "shell-version": [
     "45",
     "46",
@@ -11,8 +11,8 @@
     "49",
     "50"
   ],
-  "url": "https://github.com/velitasali/gnome-awesome-tiles-extension",
-  "uuid": "awesome-tiles@velitasali.com",
-  "author": "Pim Snel, Veli Tasalı, Samet Güzeldemirci",
-  "version": 15
+  "url": "https://github.com/episode6/gnome-shell-extension-gnockoff-tiles",
+  "uuid": "gnockoff-tiles@episode6.com",
+  "author": "episode6",
+  "version": 1
 }
