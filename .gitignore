@@ -7,3 +7,4 @@ awesome-tiles@velitasali.com.shell-extension
 *.zip
 .agent
 node_modules
+.claude/worktrees/
