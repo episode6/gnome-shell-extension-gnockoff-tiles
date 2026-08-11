@@ -2,6 +2,7 @@
  * Copyright (C) 2021 Pim Snel (https://github.com/mipmip)
  * Copyright (C) 2021 Veli Tasalı (https://github.com/velitasali)
  * Copyright (C) 2026 Samet Güzeldemirci (https://github.com/samex)
+ * Copyright (C) 2026 episode6 (https://github.com/episode6)
  *
  * Contributors:
  * - qwreey (https://github.com/qwreey)
@@ -61,7 +62,7 @@ const SYSTEM_KEYBINDING_SCHEMAS = [
   'org.gnome.desktop.wm.keybindings',
   'org.gnome.mutter.keybindings',
 ]
-export default class AwesomeTilesExtension extends Extension {
+export default class GnockoffTilesExtension extends Extension {
   enable() {
     this._windowMover = new windowMover.WindowMover()
     this._settings = this.getSettings()

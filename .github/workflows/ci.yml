@@ -41,5 +41,5 @@ jobs:
       - name: Upload extension zip
         uses: actions/upload-artifact@v6
         with:
-          name: awesome-tiles@velitasali.com.shell-extension
-          path: awesome-tiles@velitasali.com.shell-extension.zip
+          name: gnockoff-tiles@episode6.com.shell-extension
+          path: gnockoff-tiles@episode6.com.shell-extension.zip

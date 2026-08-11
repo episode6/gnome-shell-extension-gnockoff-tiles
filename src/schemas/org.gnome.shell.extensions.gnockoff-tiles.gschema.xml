@@ -1,5 +1,5 @@
-<schemalist gettext-domain="awesome-tiles@velitasali.com">
-  <schema id="org.gnome.shell.extensions.awesome-tiles" path="/org/gnome/shell/extensions/awesome-tiles/">
+<schemalist gettext-domain="gnockoff-tiles@episode6.com">
+  <schema id="org.gnome.shell.extensions.gnockoff-tiles" path="/org/gnome/shell/extensions/gnockoff-tiles/">
     <key name="enable-individual-gap-sizes" type="b">
       <default>false</default>
       <summary>Enable Individual Gap Sizes</summary>
