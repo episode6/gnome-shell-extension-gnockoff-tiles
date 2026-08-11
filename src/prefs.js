@@ -117,27 +117,11 @@ export default class GnockoffTilesPreferences extends ExtensionPreferences {
       Gio.SettingsBindFlags.DEFAULT,
     )
 
-    const centerTilingStepsEntry = new Gtk.Entry({
-      valign: Gtk.Align.CENTER,
-    });
-    const centerTilingStepsActionRow = new Adw.ActionRow({
-      title: _('Center Tiling Steps'),
-      subtitle: _('Steps on each key press (values between 0-1).'),
-    })
-    centerTilingStepsActionRow.add_suffix(centerTilingStepsEntry)
-    behaviorGroup.add(centerTilingStepsActionRow)
-    settings.bind(
-      'tiling-steps-center',
-      centerTilingStepsEntry.buffer,
-      'text',
-      Gio.SettingsBindFlags.DEFAULT,
-    )
-
     const sideTilingStepsEntry = new Gtk.Entry({
       valign: Gtk.Align.CENTER,
     });
     const sideTilingStepsActionRow = new Adw.ActionRow({
-      title: _('Side Tiling Steps'),
+      title: _('Corner Tiling Steps'),
       subtitle: _('Steps on each key press (values between 0-1).'),
     })
     sideTilingStepsActionRow.add_suffix(sideTilingStepsEntry)
@@ -609,61 +593,6 @@ export default class GnockoffTilesPreferences extends ExtensionPreferences {
     decreaseGapSizeActionRow.add_suffix(decreaseGapSizeButton)
     shortcutsGroup.add(decreaseGapSizeActionRow)
 
-    const tileWindowToCenterButton = new Gtk.Button({
-      name: 'shortcut-tile-window-to-center',
-      valign: Gtk.Align.CENTER,
-    })
-    const tileWindowToCenterActionRow = new Adw.ActionRow({
-      title: _('Tile Window to Center'),
-      subtitle: _('Shortcut to tile active window to center.'),
-    })
-    tileWindowToCenterActionRow.add_suffix(tileWindowToCenterButton)
-    shortcutsGroup.add(tileWindowToCenterActionRow)
-
-    const tileWindowToLeftButton = new Gtk.Button({
-      name: 'shortcut-tile-window-to-left',
-      valign: Gtk.Align.CENTER,
-    })
-    const tileWindowToLeftActionRow = new Adw.ActionRow({
-      title: _('Tile Window to Left'),
-      subtitle: _('Shortcut to tile the active window to left.'),
-    })
-    tileWindowToLeftActionRow.add_suffix(tileWindowToLeftButton)
-    shortcutsGroup.add(tileWindowToLeftActionRow)
-
-    const tileWindowToRightButton = new Gtk.Button({
-      name: 'shortcut-tile-window-to-right',
-      valign: Gtk.Align.CENTER,
-    })
-    const tileWindowToRightActionRow = new Adw.ActionRow({
-      title: _('Tile Window to Right'),
-      subtitle: _('Shortcut to tile the active window to right.'),
-    })
-    tileWindowToRightActionRow.add_suffix(tileWindowToRightButton)
-    shortcutsGroup.add(tileWindowToRightActionRow)
-
-    const tileWindowToTopButton = new Gtk.Button({
-      name: 'shortcut-tile-window-to-top',
-      valign: Gtk.Align.CENTER,
-    })
-    const tileWindowToTopActionRow = new Adw.ActionRow({
-      title: _('Tile Window to Top'),
-      subtitle: _('Shortcut to tile the active window to top.'),
-    })
-    tileWindowToTopActionRow.add_suffix(tileWindowToTopButton)
-    shortcutsGroup.add(tileWindowToTopActionRow)
-
-    const tileWindowToBottomButton = new Gtk.Button({
-      name: 'shortcut-tile-window-to-bottom',
-      valign: Gtk.Align.CENTER,
-    })
-    const tileWindowToBottomActionRow = new Adw.ActionRow({
-      title: _('Tile Window to Bottom'),
-      subtitle: _('Shortcut to tile the active window to bottom.'),
-    })
-    tileWindowToBottomActionRow.add_suffix(tileWindowToBottomButton)
-    shortcutsGroup.add(tileWindowToBottomActionRow)
-
     const tileWindowToTopLeftButton = new Gtk.Button({
       name: 'shortcut-tile-window-to-top-left',
       valign: Gtk.Align.CENTER,
@@ -767,11 +696,6 @@ export default class GnockoffTilesPreferences extends ExtensionPreferences {
       maximizeWindowButton,
       incrementGapSizeButton,
       decreaseGapSizeButton,
-      tileWindowToCenterButton,
-      tileWindowToLeftButton,
-      tileWindowToRightButton,
-      tileWindowToTopButton,
-      tileWindowToBottomButton,
       tileWindowToTopLeftButton,
       tileWindowToTopRightButton,
       tileWindowToBottomLeftButton,
@@ -861,7 +785,7 @@ export default class GnockoffTilesPreferences extends ExtensionPreferences {
     iconBox.append(nameLabel)
 
     const descriptionLabel = new Gtk.Label({
-      label: _('A knockoff of the macOS Tiles app, for GNOME. Tile windows into columns or into 9 positions using the number pad, cycle through grid sizes on repeated keystrokes, and resize adjacent tiled windows together. Includes customizable gaps, center alignment, and integrated workspace navigation.'),
+      label: _('A knockoff of the macOS Tiles app, for GNOME. Tile windows into columns or into the four corners, cycle through grid sizes on repeated keystrokes, and resize adjacent tiled windows together. Includes customizable gaps, center alignment, and integrated workspace navigation.'),
       wrap: true,
       justify: Gtk.Justification.CENTER,
       max_width_chars: 60,

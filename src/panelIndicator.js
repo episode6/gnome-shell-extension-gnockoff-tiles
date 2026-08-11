@@ -94,13 +94,8 @@ class PanelIndicator extends PanelMenu.Button {
 
     this._addSection(_('Tile Window'))
     this._addAction(_('Top Left'), 'shortcut-tile-window-to-top-left', (w) => extension._tileWindowTopLeft(w))
-    this._addAction(_('Top'), 'shortcut-tile-window-to-top', (w) => extension._tileWindowTop(w))
     this._addAction(_('Top Right'), 'shortcut-tile-window-to-top-right', (w) => extension._tileWindowTopRight(w))
-    this._addAction(_('Left'), 'shortcut-tile-window-to-left', (w) => extension._tileWindowLeft(w))
-    this._addAction(_('Center'), 'shortcut-tile-window-to-center', (w) => extension._tileWindowCenter(w))
-    this._addAction(_('Right'), 'shortcut-tile-window-to-right', (w) => extension._tileWindowRight(w))
     this._addAction(_('Bottom Left'), 'shortcut-tile-window-to-bottom-left', (w) => extension._tileWindowBottomLeft(w))
-    this._addAction(_('Bottom'), 'shortcut-tile-window-to-bottom', (w) => extension._tileWindowBottom(w))
     this._addAction(_('Bottom Right'), 'shortcut-tile-window-to-bottom-right', (w) => extension._tileWindowBottomRight(w))
     this._addAction(_('Maximize'), 'shortcut-maximize-window', (w) => extension._maximizeWindow(w))
     this._addAction(_('Align to Center (No Resize)'), 'shortcut-align-window-to-center', (w) => extension._alignWindowToCenter(w))
