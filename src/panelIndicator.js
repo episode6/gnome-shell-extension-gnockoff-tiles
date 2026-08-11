@@ -83,6 +83,10 @@ class PanelIndicator extends PanelMenu.Button {
       style_class: 'system-status-icon',
     }))
 
+    // Inline style because the theme's `#panel .panel-button` selector
+    // out-ranks any class selector an extension stylesheet could add.
+    this.set_style('-natural-hpadding: 0px; -minimum-hpadding: 0px;')
+
     this.menu.connect('open-state-changed', (menu, open) => {
       if (open) this._targetWindow = global.display.get_focus_window()
     })
