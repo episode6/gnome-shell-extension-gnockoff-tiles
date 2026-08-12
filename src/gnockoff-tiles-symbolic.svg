@@ -10,11 +10,13 @@
     rename the file and it renders as a plain image that ignores the panel's
     foreground color.
 
-    Everything is tuned for 16px: 1px margins, >=1px gaps between tiles, and
-    the tilt is 15deg because anything shallower smears into "slightly
-    blurry rectangle" at this size. The tilted tile is the one square corner
-    in the set - at 4px wide a corner radius costs more in mush than it buys
-    in consistency.
+    Everything is tuned for 16px. The two axis-aligned tiles sit on a 1px
+    margin; the rotated one swings its corners out past that, to 0.62px from
+    the top edge and 0.73px from the right - tight, but clear of clipping.
+    Gaps between tiles stay >=1.33px. The tilt is 15deg because anything
+    shallower smears into "slightly blurry rectangle" at this size, and the
+    tilted tile is the one square-cornered rect in the set - at 4px wide a
+    corner radius costs more in mush than it buys in consistency.
   -->
   <rect x="1" y="1" width="7" height="8" rx="0.5" fill="#000"/>
   <rect x="1" y="11" width="14" height="4" rx="0.5" fill="#000"/>
