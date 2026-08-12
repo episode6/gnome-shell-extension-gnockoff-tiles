@@ -20,6 +20,7 @@
  */
 
 import Clutter from 'gi://Clutter'
+import Gio from 'gi://Gio'
 import GObject from 'gi://GObject'
 import St from 'gi://St'
 import { gettext as _ } from 'resource:///org/gnome/shell/extensions/extension.js'
@@ -79,8 +80,12 @@ class PanelIndicator extends PanelMenu.Button {
     // so it isn't affected by whatever the popup grab does to focus.
     this._targetWindow = null
 
+    // Shipped rather than themed: the file name's `-symbolic.svg` suffix is
+    // what makes St recolor it to match the panel's foreground.
     this.add_child(new St.Icon({
-      icon_name: 'view-grid-symbolic',
+      gicon: new Gio.FileIcon({
+        file: extension.dir.get_child('gnockoff-tiles-symbolic.svg'),
+      }),
       style_class: 'system-status-icon',
     }))
 
