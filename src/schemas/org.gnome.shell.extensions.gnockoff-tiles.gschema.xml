@@ -132,7 +132,7 @@
     </key>
     <key name="shortcut-align-window-to-center" type="as">
       <default>
-        <![CDATA[['<Super>KP_0', '<Super><Alt>C']]]>
+        <![CDATA[['<Super><Alt>C']]]>
       </default>
       <summary>Align Window to Center</summary>
       <description>
