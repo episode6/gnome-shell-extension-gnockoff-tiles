@@ -3,18 +3,15 @@
 A knockoff of the [Tiles](https://freemacsoft.net/tiles/) app for macOS, for GNOME.
 
 Gnockoff Tiles is a tiling manager extension for GNOME Shell that makes it easy to move
-windows around with precision. It does that with reconfigurable keyboard shortcuts
-which are set to keys on the number pad by default.
+windows around with precision. It does that with reconfigurable keyboard shortcuts.
 
 ![The extension overview GIF](overview.gif)
 
 ## Usage
 
-### Tiling Windows
+### Corner Tiling
 
-The extension uses **Super + Number Pad** by default for quick tiling. Pressing the same shortcut multiple times cycles through different grid sizes (e.g., 50%, 75%, 33%).
-
-![Tiling Explanation with Shortcuts](tiling_explaintation_with_shortcuts.jpg)
+Tile the focused window into any of the four corners. Pressing the same shortcut multiple times cycles through different grid sizes (e.g., 50%, 65%, 35%).
 
 ### Column Tiling
 
@@ -28,9 +25,9 @@ Hold **Alt** (reconfigurable in settings) while dragging a window edge to resize
 
 ## Features
 
-- **Smart Tiling**: Tile windows in 9 different ways using the number pad.
+- **Corner Tiling**: Tile windows into any of the four corners.
 - **Column Tiling**: Make a window a third, half, or two thirds of the screen wide at full height and step it left or right through the left, center, and right positions (like the Tiles app for macOS).
-- **Dynamic Grid Sizes**: Successive key presses cycle through different tiling sizes (e.g., 50%, 75%, 33%).
+- **Dynamic Grid Sizes**: Successive key presses cycle through different tiling sizes (e.g., 50%, 65%, 35%).
 - **Linked Resizing**: Resize adjacent tiled windows simultaneously by holding a modifier key (**Alt** by default).
 - **Customizable Gaps**: Add and adjust gaps around windows and between them to suit your preference.
 - **Center Alignment**: Quickly align any window to the center of the workspace without resizing.
@@ -42,15 +39,10 @@ Hold **Alt** (reconfigurable in settings) while dragging a window edge to resize
 | Shortcut                | Action                      |
 | ----------------------- | --------------------------- |
 | **Super + KP_1**        | Tile window to Bottom Left  |
-| **Super + KP_2**        | Tile window to Bottom       |
 | **Super + KP_3**        | Tile window to Bottom Right |
-| **Super + KP_4**        | Tile window to Left         |
-| **Super + KP_5**        | Tile window to Center       |
-| **Super + KP_6**        | Tile window to Right        |
 | **Super + KP_7**        | Tile window to Top Left     |
-| **Super + KP_8**        | Tile window to Top          |
 | **Super + KP_9**        | Tile window to Top Right    |
-| **Super + KP_0** or **Super + Alt + C** | Align window to Center (no resize) |
+| **Super + Alt + C**     | Align window to Center (no resize) |
 | **Super + Alt + F** | Maximize window (fill the workspace) |
 | **Super + KP_Add**      | Increase Gap Size           |
 | **Super + KP_Subtract** | Decrease Gap Size           |

@@ -43,7 +43,6 @@ import {
   COLUMN_MATCH_TOLERANCE,
   GAP_SIZE_MAX,
   GAP_SIZE_PIXEL_MAX,
-  TILING_STEPS_CENTER,
   TILING_STEPS_SIDE,
 } from './constants.js'
 import { isRectCloseTo, isRectEqual, normalizeAccelerator, parseTilingSteps } from './utils.js'
@@ -84,13 +83,8 @@ export default class GnockoffTilesExtension extends Extension {
     })
 
     this._bindShortcut("shortcut-align-window-to-center", () => this._alignWindowToCenter())
-    this._bindShortcut("shortcut-tile-window-to-center", () => this._tileWindowCenter())
-    this._bindShortcut("shortcut-tile-window-to-left", () => this._tileWindowLeft())
-    this._bindShortcut("shortcut-tile-window-to-right", () => this._tileWindowRight())
-    this._bindShortcut("shortcut-tile-window-to-top", () => this._tileWindowTop())
     this._bindShortcut("shortcut-tile-window-to-top-left", () => this._tileWindowTopLeft())
     this._bindShortcut("shortcut-tile-window-to-top-right", () => this._tileWindowTopRight())
-    this._bindShortcut("shortcut-tile-window-to-bottom", () => this._tileWindowBottom())
     this._bindShortcut("shortcut-tile-window-to-bottom-left", () => this._tileWindowBottomLeft())
     this._bindShortcut("shortcut-tile-window-to-bottom-right", () => this._tileWindowBottomRight())
     this._bindShortcut("shortcut-maximize-window", () => this._maximizeWindow())
@@ -493,13 +487,6 @@ export default class GnockoffTilesExtension extends Extension {
     return this._settings.get_int("bottom-gap-size")
   }
 
-  get _tilingStepsCenter() {
-    return parseTilingSteps(
-      this._settings.get_string("tiling-steps-center"),
-      TILING_STEPS_CENTER,
-    )
-  }
-
   get _tilingStepsSide() {
     return parseTilingSteps(
       this._settings.get_string("tiling-steps-side"),
@@ -515,82 +502,61 @@ export default class GnockoffTilesExtension extends Extension {
     return this._settings.get_int("next-step-timeout")
   }
 
-  _tileWindow(top, bottom, left, right, window = global.display.get_focus_window()) {
+  _tileWindowCorner(top, left, window = global.display.get_focus_window()) {
     if (!window) return
 
-    const { x, y, width, height } = this._nextWindowRect(window, top, bottom, left, right)
+    const { x, y, width, height } = this._nextWindowRect(window, top, left)
 
     this._windowMover._setWindowRect(window, x, y, width, height, this._isWindowAnimationEnabled)
   }
 
-  _nextWindowRect(window, top, bottom, left, right) {
+  _nextWindowRect(window, top, left) {
     const time = Date.now()
-    const center = !(top || bottom || left || right)
     const prev = this._previousTilingOperation
     const windowId = window.get_id()
-    const steps = center ? this._tilingStepsCenter : this._tilingStepsSide
+    const steps = this._tilingStepsSide
     const successive =
       prev &&
       prev.windowId === windowId &&
       time - prev.time <= this._nextStepTimeout &&
       prev.top === top &&
-      prev.bottom === bottom &&
       prev.left === left &&
-      prev.right === right &&
       prev.iteration < steps.length &&
-      prev.window === window 
+      prev.window === window
     let iteration = successive ? prev.iteration : 0
-    let rect = this._computeWindowRect(window, top, bottom, left, right, steps[iteration], center)
+    let rect = this._computeWindowRect(window, top, left, steps[iteration])
 
     for (const end = iteration; successive && isRectEqual(rect, prev.rect);) {
       iteration = (iteration + 1) % steps.length
       if (iteration === end)
         break;
-      rect = this._computeWindowRect(window, top, bottom, left, right, steps[iteration], center)
+      rect = this._computeWindowRect(window, top, left, steps[iteration])
     }
 
     this._previousTilingOperation =
-      { windowId, top, bottom, left, right, rect, time, iteration: iteration + 1, window }
+      { windowId, top, left, rect, time, iteration: iteration + 1, window }
 
     return rect
   }
 
-  _computeWindowRect(window, top, bottom, left, right, step, center) {
+  _computeWindowRect(window, top, left, step) {
     const widthFactor = 1.0 - step[0]
     const heightFactor = step.length > 1 ? (1.0 - step[1]) : widthFactor
 
     const workArea = this._calculateWorkspaceArea(window)
     let { x, y, width, height } = workArea
 
-    if (center) {
-      const monitor = window.get_monitor()
-      const monitorGeometry = global.display.get_monitor_geometry(monitor)
-      const isVertical = monitorGeometry.width < monitorGeometry.height
-      const centerTilingWidthFactor = isVertical ? widthFactor / 2 : widthFactor
-      const centerTilingHeightFactor = isVertical ? heightFactor : heightFactor / 2
+    width -= width * widthFactor
+    height -= height * heightFactor
+    if (!left) x += workArea.width - width
+    if (!top) y += workArea.height - height
 
-      width -= width * centerTilingWidthFactor
-      height -= height * centerTilingHeightFactor
-      x += (workArea.width - width) / 2
-      y += (workArea.height - height) / 2
-
-    } else {
-      if (left !== right) width -= width * widthFactor
-      if (top !== bottom) height -= height * heightFactor
-      if (!left) x += (workArea.width - width) / (right ? 1 : 2)
-      if (!top) y += (workArea.height - height) / (bottom ? 1 : 2)
-
-      if (this._isInnerGapsEnabled) {
-        const { x: innerGapX, y: innerGapY } = this._computeInnerGaps(workArea)
-        if (left !== right) {
-          if (right) x += innerGapX / 2
-          width -= innerGapX / 2
-        }
-        if (top !== bottom) {
-          if (bottom) y += innerGapY / 2
-          height -= innerGapY / 2
-        }
-      }
+    if (this._isInnerGapsEnabled) {
+      const { x: innerGapX, y: innerGapY } = this._computeInnerGaps(workArea)
+      if (!left) x += innerGapX / 2
+      if (!top) y += innerGapY / 2
+      width -= innerGapX / 2
+      height -= innerGapY / 2
     }
 
     x = Math.round(x)
@@ -717,39 +683,19 @@ export default class GnockoffTilesExtension extends Extension {
     this._tileWindowColumn(2 / 3, 1, window)
   }
 
-  _tileWindowBottom(window) {
-    this._tileWindow(false, true, true, true, window)
-  }
-
-  _tileWindowBottomLeft(window) {
-    this._tileWindow(false, true, true, false, window)
-  }
-
-  _tileWindowBottomRight(window) {
-    this._tileWindow(false, true, false, true, window)
-  }
-
-  _tileWindowCenter(window) {
-    this._tileWindow(false, false, false, false, window)
-  }
-
-  _tileWindowLeft(window) {
-    this._tileWindow(true, true, true, false, window)
-  }
-
-  _tileWindowRight(window) {
-    this._tileWindow(true, true, false, true, window)
-  }
-
-  _tileWindowTop(window) {
-    this._tileWindow(true, false, true, true, window)
-  }
-
   _tileWindowTopLeft(window) {
-    this._tileWindow(true, false, true, false, window)
+    this._tileWindowCorner(true, true, window)
   }
 
   _tileWindowTopRight(window) {
-    this._tileWindow(true, false, false, true, window)
+    this._tileWindowCorner(true, false, window)
+  }
+
+  _tileWindowBottomLeft(window) {
+    this._tileWindowCorner(false, true, window)
+  }
+
+  _tileWindowBottomRight(window) {
+    this._tileWindowCorner(false, false, window)
   }
 }
