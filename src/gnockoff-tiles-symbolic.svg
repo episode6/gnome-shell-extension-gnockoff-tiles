@@ -1,0 +1,25 @@
+<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+  <!--
+    Panel-indicator icon: icon.svg's layout reduced to a symbolic glyph - a
+    tidy tiling layout with one tile that refuses to line up.
+
+    St recolors this by wrapping the file in a stylesheet that forces `fill`
+    on rect/path/ellipse/circle/polygon, so: only those elements, no
+    gradients, and no per-tile colors (the knockoff tile reads by its tilt
+    alone). The `-symbolic.svg` suffix is what triggers that recoloring -
+    rename the file and it renders as a plain image that ignores the panel's
+    foreground color.
+
+    Everything is tuned for 16px. The two axis-aligned tiles sit on a 1px
+    margin; the rotated one swings its corners out past that, to 0.62px from
+    the top edge and 0.73px from the right - tight, but clear of clipping.
+    Gaps between tiles stay >=1.33px. The tilt is 15deg because anything
+    shallower smears into "slightly blurry rectangle" at this size, and the
+    tilted tile is the one square-cornered rect in the set - at 4px wide a
+    corner radius costs more in mush than it buys in consistency.
+  -->
+  <rect x="1" y="1" width="7" height="8" rx="0.5" fill="#000"/>
+  <rect x="1" y="11" width="14" height="4" rx="0.5" fill="#000"/>
+  <rect x="10.3" y="1" width="4" height="8" fill="#000"
+        transform="rotate(15 12.3 5)"/>
+</svg>
