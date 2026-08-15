@@ -42,7 +42,7 @@
     </key>
     <key name="shortcut-tile-window-to-top-left" type="as">
       <default>
-        <![CDATA[['<Super>KP_7']]]>
+        <![CDATA[['<Super><Alt>U']]]>
       </default>
       <summary>Tile Window to Top Left</summary>
       <description>
@@ -51,7 +51,7 @@
     </key>
     <key name="shortcut-tile-window-to-top-right" type="as">
       <default>
-        <![CDATA[['<Super>KP_9']]]>
+        <![CDATA[['<Super><Alt>I']]]>
       </default>
       <summary>Tile Window to Top Right</summary>
       <description>
@@ -60,7 +60,7 @@
     </key>
     <key name="shortcut-tile-window-to-bottom-left" type="as">
       <default>
-        <![CDATA[['<Super>KP_1']]]>
+        <![CDATA[['<Super><Alt>J']]]>
       </default>
       <summary>Tile Window to Bottom Left</summary>
       <description>
@@ -69,7 +69,7 @@
     </key>
     <key name="shortcut-tile-window-to-bottom-right" type="as">
       <default>
-        <![CDATA[['<Super>KP_3']]]>
+        <![CDATA[['<Super><Alt>K']]]>
       </default>
       <summary>Tile Window to Bottom Right</summary>
       <description>
