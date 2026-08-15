@@ -74,6 +74,7 @@ class PanelIndicator extends PanelMenu.Button {
     super._init(0.0, _('Gnockoff Tiles'))
 
     this._settings = extension._settings
+    this._extensionDir = extension.dir
     this._settingsConnections = []
 
     // The window the actions should apply to, captured when the menu opens
@@ -84,7 +85,7 @@ class PanelIndicator extends PanelMenu.Button {
     // what makes St recolor it to match the panel's foreground.
     this.add_child(new St.Icon({
       gicon: new Gio.FileIcon({
-        file: extension.dir.get_child('gnockoff-tiles-symbolic.svg'),
+        file: this._extensionDir.get_child('gnockoff-tiles-symbolic.svg'),
       }),
       style_class: 'system-status-icon',
     }))
@@ -97,28 +98,34 @@ class PanelIndicator extends PanelMenu.Button {
       if (open) this._targetWindow = global.display.get_focus_window()
     })
 
-    this._addSection(_('Tile Window'))
-    this._addAction(_('Top Left'), 'shortcut-tile-window-to-top-left', (w) => extension._tileWindowTopLeft(w))
-    this._addAction(_('Top Right'), 'shortcut-tile-window-to-top-right', (w) => extension._tileWindowTopRight(w))
-    this._addAction(_('Bottom Left'), 'shortcut-tile-window-to-bottom-left', (w) => extension._tileWindowBottomLeft(w))
-    this._addAction(_('Bottom Right'), 'shortcut-tile-window-to-bottom-right', (w) => extension._tileWindowBottomRight(w))
-    this._addAction(_('Maximize'), 'shortcut-maximize-window', (w) => extension._maximizeWindow(w))
-    this._addAction(_('Align to Center (No Resize)'), 'shortcut-align-window-to-center', (w) => extension._alignWindowToCenter(w))
+    // Grouped and ordered to mirror the macOS Tiles menu this extension
+    // knocks off: settings first, then center/fullscreen, halves, corners,
+    // and thirds, with our gap actions tacked on at the end.
+    this.menu.addAction(_('Settings…'), () => extension.openPreferences(), 'preferences-system-symbolic')
 
-    this._addSection(_('Tile Column'))
-    this._addAction(_('Third Width, Move Left'), 'shortcut-tile-column-third-left', (w) => extension._tileColumnThirdLeft(w))
-    this._addAction(_('Third Width, Move Right'), 'shortcut-tile-column-third-right', (w) => extension._tileColumnThirdRight(w))
-    this._addAction(_('Half Width, Move Left'), 'shortcut-tile-column-half-left', (w) => extension._tileColumnHalfLeft(w))
-    this._addAction(_('Half Width, Move Right'), 'shortcut-tile-column-half-right', (w) => extension._tileColumnHalfRight(w))
-    this._addAction(_('Two-Thirds Width, Move Left'), 'shortcut-tile-column-two-thirds-left', (w) => extension._tileColumnTwoThirdsLeft(w))
-    this._addAction(_('Two-Thirds Width, Move Right'), 'shortcut-tile-column-two-thirds-right', (w) => extension._tileColumnTwoThirdsRight(w))
+    this._addSeparator()
+    this._addAction(_('Align to Center (No Resize)'), 'shortcut-align-window-to-center', this._tileIcon('center'), (w) => extension._alignWindowToCenter(w))
+    this._addAction(_('Maximize'), 'shortcut-maximize-window', this._tileIcon('fullscreen'), (w) => extension._maximizeWindow(w))
 
-    this._addSection(_('Gaps'))
-    this._addAction(_('Increase Gap Size'), 'shortcut-increase-gap-size', () => extension._increaseGapSize())
-    this._addAction(_('Decrease Gap Size'), 'shortcut-decrease-gap-size', () => extension._decreaseGapSize())
+    this._addSeparator()
+    this._addAction(_('Half Width, Move Left'), 'shortcut-tile-column-half-left', this._tileIcon('half-left'), (w) => extension._tileColumnHalfLeft(w))
+    this._addAction(_('Half Width, Move Right'), 'shortcut-tile-column-half-right', this._tileIcon('half-right'), (w) => extension._tileColumnHalfRight(w))
 
-    this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem())
-    this.menu.addAction(_('Settings…'), () => extension.openPreferences())
+    this._addSeparator()
+    this._addAction(_('Top Left'), 'shortcut-tile-window-to-top-left', this._tileIcon('top-left'), (w) => extension._tileWindowTopLeft(w))
+    this._addAction(_('Top Right'), 'shortcut-tile-window-to-top-right', this._tileIcon('top-right'), (w) => extension._tileWindowTopRight(w))
+    this._addAction(_('Bottom Left'), 'shortcut-tile-window-to-bottom-left', this._tileIcon('bottom-left'), (w) => extension._tileWindowBottomLeft(w))
+    this._addAction(_('Bottom Right'), 'shortcut-tile-window-to-bottom-right', this._tileIcon('bottom-right'), (w) => extension._tileWindowBottomRight(w))
+
+    this._addSeparator()
+    this._addAction(_('Third Width, Move Left'), 'shortcut-tile-column-third-left', this._tileIcon('third-left'), (w) => extension._tileColumnThirdLeft(w))
+    this._addAction(_('Third Width, Move Right'), 'shortcut-tile-column-third-right', this._tileIcon('third-right'), (w) => extension._tileColumnThirdRight(w))
+    this._addAction(_('Two-Thirds Width, Move Left'), 'shortcut-tile-column-two-thirds-left', this._tileIcon('two-thirds-left'), (w) => extension._tileColumnTwoThirdsLeft(w))
+    this._addAction(_('Two-Thirds Width, Move Right'), 'shortcut-tile-column-two-thirds-right', this._tileIcon('two-thirds-right'), (w) => extension._tileColumnTwoThirdsRight(w))
+
+    this._addSeparator()
+    this._addAction(_('Increase Gap Size'), 'shortcut-increase-gap-size', 'list-add-symbolic', () => extension._increaseGapSize())
+    this._addAction(_('Decrease Gap Size'), 'shortcut-decrease-gap-size', 'list-remove-symbolic', () => extension._decreaseGapSize())
 
     this.connect('destroy', () => {
       this._settingsConnections.forEach((id) => this._settings.disconnect(id))
@@ -127,12 +134,20 @@ class PanelIndicator extends PanelMenu.Button {
     })
   }
 
-  _addSection(title) {
-    this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem(title))
+  _addSeparator() {
+    this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem())
   }
 
-  _addAction(label, settingName, callback) {
-    const item = new PopupMenu.PopupMenuItem(label)
+  // Icons named `tile-*-symbolic.svg` are shipped in icons/ rather than
+  // pulled from the icon theme — no theme ships per-tile-position glyphs.
+  _tileIcon(name) {
+    return new Gio.FileIcon({
+      file: this._extensionDir.get_child('icons').get_child(`tile-${name}-symbolic.svg`),
+    })
+  }
+
+  _addAction(label, settingName, icon, callback) {
+    const item = new PopupMenu.PopupImageMenuItem(label, icon)
     item.label.x_expand = true
 
     const shortcutLabel = new St.Label({

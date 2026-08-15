@@ -23,6 +23,7 @@ function pack-extension {
         --extra-source="prefs-shortcut-dialog.ui" \
         --extra-source="icon.svg" \
         --extra-source="gnockoff-tiles-symbolic.svg" \
+        --extra-source="icons" \
         --extra-source="../LICENSE"
 }
 
