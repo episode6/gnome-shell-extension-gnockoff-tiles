@@ -38,10 +38,10 @@ Hold **Alt** (reconfigurable in settings) while dragging a window edge to resize
 
 | Shortcut                | Action                      |
 | ----------------------- | --------------------------- |
-| **Super + KP_1**        | Tile window to Bottom Left  |
-| **Super + KP_3**        | Tile window to Bottom Right |
-| **Super + KP_7**        | Tile window to Top Left     |
-| **Super + KP_9**        | Tile window to Top Right    |
+| **Super + Alt + J**     | Tile window to Bottom Left  |
+| **Super + Alt + K**     | Tile window to Bottom Right |
+| **Super + Alt + U**     | Tile window to Top Left     |
+| **Super + Alt + I**     | Tile window to Top Right    |
 | **Super + Alt + C**     | Align window to Center (no resize) |
 | **Super + Alt + F** | Maximize window (fill the workspace) |
 | **Super + KP_Add**      | Increase Gap Size           |
