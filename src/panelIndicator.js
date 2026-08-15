@@ -85,7 +85,7 @@ class PanelIndicator extends PanelMenu.Button {
     // what makes St recolor it to match the panel's foreground.
     this.add_child(new St.Icon({
       gicon: new Gio.FileIcon({
-        file: extension.dir.get_child('gnockoff-tiles-symbolic.svg'),
+        file: this._extensionDir.get_child('gnockoff-tiles-symbolic.svg'),
       }),
       style_class: 'system-status-icon',
     }))
