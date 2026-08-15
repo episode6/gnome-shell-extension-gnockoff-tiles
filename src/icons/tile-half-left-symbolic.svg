@@ -1,0 +1,9 @@
+<svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+  <!--
+    Menu icon: a 1px window frame with the tiled region filled in. Fills
+    only (no strokes/gradients) and the -symbolic.svg suffix, so St
+    recolors it to the menu's foreground color.
+  -->
+  <path fill-rule="evenodd" fill="#000" d="M2.5 1 H13.5 Q15 1 15 2.5 V13.5 Q15 15 13.5 15 H2.5 Q1 15 1 13.5 V2.5 Q1 1 2.5 1 Z M2.75 2 H13.25 Q14 2 14 2.75 V13.25 Q14 14 13.25 14 H2.75 Q2 14 2 13.25 V2.75 Q2 2 2.75 2 Z"/>
+  <rect x="3" y="3" width="5" height="10" rx="0.5" fill="#000"/>
+</svg>
