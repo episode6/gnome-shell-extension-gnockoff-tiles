@@ -56,11 +56,21 @@ function usage() {
 }
 
 function update-po() {
-    echo '' > messages.po
-    find ./src -type f \( -name "*.ui" -or -name "*.js" \) | xgettext --from-code utf-8 -j messages.po -f -
-    sed -i 's|"Content\-Type: text/plain; charset=CHARSET\\n"|"Content-Type: text/plain; charset=UTF-8\\n"|g' messages.po
-    find ./po -type f -name "*.po" | xargs -i msgmerge {} messages.po -N --no-wrap -U
-    mv messages.po $(find ./po -type f -name "*.pot")
+    local pot=po/$NAME.pot
+    echo 'Extracting strings...'
+    find ./src -type f \( -name "*.ui" -or -name "*.js" \) | sort | xgettext \
+        --from-code=utf-8 \
+        --package-name="Gnockoff Tiles" \
+        --msgid-bugs-address="https://github.com/episode6/gnome-shell-extension-gnockoff-tiles/issues" \
+        --no-wrap \
+        --files-from=- \
+        --output="$pot"
+    sed -i 's|"Content\-Type: text/plain; charset=CHARSET\\n"|"Content-Type: text/plain; charset=UTF-8\\n"|g' "$pot"
+    echo 'Merging into translations...'
+    for po in po/*.po; do
+        msgmerge --update --no-fuzzy-matching --no-wrap --backup=none "$po" "$pot"
+        msgattrib --no-obsolete --no-wrap --output-file="$po" "$po"
+    done
 }
 
 case "$1" in
