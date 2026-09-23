@@ -16,20 +16,22 @@ jobs:
     container: ubuntu:26.04
     env:
       DEBIAN_FRONTEND: noninteractive
+      # Must match the "uuid" in src/metadata.json and NAME in install.sh.
+      ZIP: gnockoff-tiles@episode6.com.shell-extension.zip
     steps:
       - name: Install dependencies
         run: |
           apt-get update
           apt-get install -y --no-install-recommends \
-            ca-certificates git gnome-shell gettext libglib2.0-bin zip
+            ca-certificates git gnome-shell gettext jq libglib2.0-bin zip
           gnome-extensions version
 
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
 
       - name: Check that the tag matches metadata.json
         run: |
           tag="${GITHUB_REF_NAME#v}"
-          version="$(python3 -c 'import json; print(json.load(open("src/metadata.json"))["version"])')"
+          version="$(jq -r .version src/metadata.json)"
           if [ "$tag" != "$version" ]; then
             echo "Tag v$tag does not match \"version\": $version in src/metadata.json" >&2
             exit 1
@@ -41,9 +43,9 @@ jobs:
           ./install.sh zip
 
       - name: Create GitHub release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2.6.2
         with:
-          files: gnockoff-tiles@episode6.com.shell-extension.zip
+          files: ${{ env.ZIP }}
           generate_release_notes: true
 
       - name: Upload to extensions.gnome.org
@@ -59,4 +61,4 @@ jobs:
             --user "$EGO_USER" \
             --password-file - \
             --accept-tos \
-            gnockoff-tiles@episode6.com.shell-extension.zip
+            "$ZIP"
