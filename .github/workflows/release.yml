@@ -48,15 +48,15 @@ jobs:
 
       - name: Upload to extensions.gnome.org
         env:
-          EGO_USERNAME: ${{ secrets.EGO_USERNAME }}
+          EGO_USER: ${{ secrets.EGO_USER }}
           EGO_PASSWORD: ${{ secrets.EGO_PASSWORD }}
         run: |
-          if [ -z "$EGO_USERNAME" ] || [ -z "$EGO_PASSWORD" ]; then
-            echo "EGO_USERNAME and EGO_PASSWORD secrets are not set" >&2
+          if [ -z "$EGO_USER" ] || [ -z "$EGO_PASSWORD" ]; then
+            echo "EGO_USER and EGO_PASSWORD secrets are not set" >&2
             exit 1
           fi
           printf '%s' "$EGO_PASSWORD" | gnome-extensions upload \
-            --user "$EGO_USERNAME" \
+            --user "$EGO_USER" \
             --password-file - \
             --accept-tos \
             gnockoff-tiles@episode6.com.shell-extension.zip

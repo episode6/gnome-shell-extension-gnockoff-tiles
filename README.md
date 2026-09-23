@@ -157,7 +157,7 @@ Releases are cut by pushing a version tag. The [release workflow](.github/workfl
 
 The workflow fails early if the tag and the metadata version disagree. It runs inside an Ubuntu 26.04 container because the `gnome-extensions upload` subcommand first shipped with GNOME 49.
 
-The upload step signs in with the `EGO_USERNAME` and `EGO_PASSWORD` repository secrets (extensions.gnome.org has no API tokens, so this is a real account password). Uploading only queues the version; a reviewer on extensions.gnome.org still has to approve it before it goes live.
+The upload step signs in with the `EGO_USER` and `EGO_PASSWORD` repository secrets (extensions.gnome.org has no API tokens, so this is a real account password). Uploading only queues the version; a reviewer on extensions.gnome.org still has to approve it before it goes live.
 
 ## Credits
 
