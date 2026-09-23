@@ -1,0 +1,64 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    # `gnome-extensions upload` first shipped in GNOME 49. The stock runner image
+    # is older, so build and upload inside a container with a current gnome-shell.
+    container: ubuntu:26.04
+    env:
+      DEBIAN_FRONTEND: noninteractive
+      # Must match the "uuid" in src/metadata.json and NAME in install.sh.
+      ZIP: gnockoff-tiles@episode6.com.shell-extension.zip
+    steps:
+      - name: Install dependencies
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends \
+            ca-certificates git gnome-shell gettext jq libglib2.0-bin zip
+          gnome-extensions version
+
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+
+      - name: Check that the tag matches metadata.json
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          version="$(jq -r .version src/metadata.json)"
+          if [ "$tag" != "$version" ]; then
+            echo "Tag v$tag does not match \"version\": $version in src/metadata.json" >&2
+            exit 1
+          fi
+
+      - name: Pack extension
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          ./install.sh zip
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@3bb12739c298aeb8a4eeaf626c5b8d85266b0e65 # v2.6.2
+        with:
+          files: ${{ env.ZIP }}
+          generate_release_notes: true
+
+      - name: Upload to extensions.gnome.org
+        env:
+          EGO_USER: ${{ secrets.EGO_USER }}
+          EGO_PASSWORD: ${{ secrets.EGO_PASSWORD }}
+        run: |
+          if [ -z "$EGO_USER" ] || [ -z "$EGO_PASSWORD" ]; then
+            echo "EGO_USER and EGO_PASSWORD secrets are not set" >&2
+            exit 1
+          fi
+          printf '%s' "$EGO_PASSWORD" | gnome-extensions upload \
+            --user "$EGO_USER" \
+            --password-file - \
+            --accept-tos \
+            "$ZIP"
