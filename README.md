@@ -145,15 +145,16 @@ The `start-dev.sh` script includes an integrated watcher that monitors the `src/
 
 ### Releasing
 
-Releases are cut by pushing a version tag. The [release workflow](.github/workflows/release.yml) then packs the extension, attaches the zip to a GitHub release, and uploads that same zip to [extensions.gnome.org](https://extensions.gnome.org) for review.
+Releases are cut by creating a GitHub release with `gh release create`, which also creates the version tag. The new tag triggers the [release workflow](.github/workflows/release.yml), which packs the extension, attaches the zip to that release, and uploads the same zip to [extensions.gnome.org](https://extensions.gnome.org) for review.
 
 1. Bump `"version"` in `src/metadata.json` and merge that change to `main`.
-2. Tag the merge commit with a matching `v<version>` tag and push it:
+2. Wait for CI to pass on the merge commit, then create the release with a matching `v<version>` tag on that commit:
 
    ```bash
-   git tag v2
-   git push origin v2
+   gh release create v3 --target <merge-commit-sha> --title v3 --generate-notes
    ```
+
+Don't create the tag by hand with `git tag`/`git push`. Use `gh release create` so the release exists, with its title and notes, as soon as the tag does. Don't pass `--draft` either: a draft release doesn't create its tag, so the workflow never runs.
 
 The workflow fails early if the tag and the metadata version disagree. It runs inside an Ubuntu 26.04 container because the `gnome-extensions upload` subcommand first shipped with GNOME 49.
 
