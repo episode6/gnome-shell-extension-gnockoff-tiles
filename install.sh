@@ -2,11 +2,6 @@
 
 set -e
 
-if [ "$UID" = "0" ]; then
-    echo 'This should not be run as root'
-    exit 101
-fi
-
 NAME=gnockoff-tiles\@episode6.com
 
 function pack-extension {
@@ -75,6 +70,12 @@ function update-po() {
 
 case "$1" in
     "local-install" )
+        # Installing as root would put the extension in root's home, not the
+        # user's. Packing is fine as root (the release job runs in a container).
+        if [ "$UID" = "0" ]; then
+            echo 'This should not be run as root'
+            exit 101
+        fi
         compile-schemas
         pack-extension
         gnome-extensions install --force $NAME.shell-extension.zip && restart-shell
