@@ -143,6 +143,22 @@ The `start-dev.sh` script includes an integrated watcher that monitors the `src/
   - Compiles `.po` files into `.mo` binaries using `msgfmt`.
 - **Hot Reload**: When a change is detected, the GNOME Shell container is automatically restarted to apply the fresh build immediately.
 
+### Releasing
+
+Releases are cut by pushing a version tag. The [release workflow](.github/workflows/release.yml) then packs the extension, attaches the zip to a GitHub release, and uploads that same zip to [extensions.gnome.org](https://extensions.gnome.org) for review.
+
+1. Bump `"version"` in `src/metadata.json` and merge that change to `main`.
+2. Tag the merge commit with a matching `v<version>` tag and push it:
+
+   ```bash
+   git tag v2
+   git push origin v2
+   ```
+
+The workflow fails early if the tag and the metadata version disagree. It runs inside an Ubuntu 26.04 container because the `gnome-extensions upload` subcommand first shipped with GNOME 49.
+
+The upload step signs in with the `EGO_USERNAME` and `EGO_PASSWORD` repository secrets (extensions.gnome.org has no API tokens, so this is a real account password). Uploading only queues the version; a reviewer on extensions.gnome.org still has to approve it before it goes live.
+
 ## Credits
 
 Gnockoff Tiles is maintained by [episode6](https://github.com/episode6).

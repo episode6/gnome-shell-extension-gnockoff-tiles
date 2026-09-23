@@ -1,0 +1,62 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    # `gnome-extensions upload` first shipped in GNOME 49. The stock runner image
+    # is older, so build and upload inside a container with a current gnome-shell.
+    container: ubuntu:26.04
+    env:
+      DEBIAN_FRONTEND: noninteractive
+    steps:
+      - name: Install dependencies
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends \
+            ca-certificates git gnome-shell gettext libglib2.0-bin zip
+          gnome-extensions version
+
+      - uses: actions/checkout@v5
+
+      - name: Check that the tag matches metadata.json
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          version="$(python3 -c 'import json; print(json.load(open("src/metadata.json"))["version"])')"
+          if [ "$tag" != "$version" ]; then
+            echo "Tag v$tag does not match \"version\": $version in src/metadata.json" >&2
+            exit 1
+          fi
+
+      - name: Pack extension
+        run: |
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          ./install.sh zip
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: gnockoff-tiles@episode6.com.shell-extension.zip
+          generate_release_notes: true
+
+      - name: Upload to extensions.gnome.org
+        env:
+          EGO_USERNAME: ${{ secrets.EGO_USERNAME }}
+          EGO_PASSWORD: ${{ secrets.EGO_PASSWORD }}
+        run: |
+          if [ -z "$EGO_USERNAME" ] || [ -z "$EGO_PASSWORD" ]; then
+            echo "EGO_USERNAME and EGO_PASSWORD secrets are not set" >&2
+            exit 1
+          fi
+          printf '%s' "$EGO_PASSWORD" | gnome-extensions upload \
+            --user "$EGO_USERNAME" \
+            --password-file - \
+            --accept-tos \
+            gnockoff-tiles@episode6.com.shell-extension.zip
