@@ -258,8 +258,8 @@
     </key>
     <key name="override-system-keybindings" type="b">
       <default>false</default>
-      <summary>Override system workspace keybindings</summary>
-      <description>Override system workspace switching keybindings to match extension shortcuts, preventing conflicts with Numpad 9 and 3 in GNOME 49.</description>
+      <summary>Override system workspace shortcuts</summary>
+      <description>Replace GNOME's built-in workspace switching and moving shortcuts with the ones configured in the extension. The originals are restored when the override is turned off or the extension is disabled.</description>
     </key>
     <key name="saved-system-keybindings" type="s">
       <default><![CDATA['']]></default>

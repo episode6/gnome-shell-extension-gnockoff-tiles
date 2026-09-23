@@ -31,7 +31,7 @@ jobs:
       - name: Compile translations
         run: |
           for po in po/*.po; do
-            msgfmt --output-file=/dev/null "$po"
+            msgfmt --check --output-file=/dev/null "$po"
             echo "OK: $po"
           done
 

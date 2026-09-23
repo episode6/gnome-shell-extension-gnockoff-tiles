@@ -5,9 +5,9 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-15 22:11+0100\n"
+"Project-Id-Version: gnockoff-tiles\n"
+"Report-Msgid-Bugs-To: https://github.com/episode6/gnome-shell-extension-gnockoff-tiles/issues\n"
+"POT-Creation-Date: 2026-09-23 19:08-0400\n"
 "PO-Revision-Date: 2026-03-15 22:11+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,423 +17,475 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/extension.js:361
+#: src/extension.js:427
 #, javascript-format
 msgid "Gap size is now at %d pixel"
 msgid_plural "Gap size is now at %d pixels"
 msgstr[0] "Το μέγεθος του κενού είναι τώρα στα %d pixel"
 msgstr[1] "Το μέγεθος του κενού είναι τώρα στα %d pixel"
 
-#: src/extension.js:366
+#: src/extension.js:432
 #, javascript-format
 msgid "Gap size is now at %d percent"
 msgid_plural "Gap size is now at %d percent"
 msgstr[0] "Το μέγεθος του κενού είναι τώρα στο %d τοις εκατό"
 msgstr[1] "Το μέγεθος του κενού είναι τώρα στο %d τοις εκατό"
 
-#: src/prefs.js:55 src/prefs.js:87
-msgid "Behavior"
-msgstr "Συμπεριφορά"
-
-#: src/prefs.js:64 src/prefs.js:195
-msgid "Gaps"
-msgstr "Κενά"
-
-#: src/prefs.js:73 src/prefs.js:477
-msgid "Shortcuts"
-msgstr "Συντομεύσεις"
-
-#: src/prefs.js:91
-msgid "Enable Window Animations"
-msgstr "Ενεργοποίηση κινήσεων παραθύρου"
-
-#: src/prefs.js:92
-msgid "Animate windows when resized or repositioned (this may be buggy on Wayland)."
-msgstr "Κίνηση παραθύρων κατά την αλλαγή μεγέθους ή την επανατοποθέτηση (αυτό μπορεί να παρουσιάζει σφάλματα στο Wayland)."
-
-#: src/prefs.js:103
-msgid "Shortcut Iteration Timeout in Milliseconds"
-msgstr "Χρονικό όριο επανάληψης συντόμευσης σε χιλιοστά του δευτερολέπτου"
-
-#: src/prefs.js:104
-msgid "The time window to consider a new key press an iteration."
-msgstr "Το χρονικό παράθυρο για να θεωρηθεί ένα νέο πάτημα πλήκτρου ως επανάληψη."
-
-#: src/prefs.js:123
-msgid "Center Tiling Steps"
-msgstr "Βήματα κεντρικής παράθεσης"
-
-#: src/prefs.js:124 src/prefs.js:140
-msgid "Steps on each key press (values between 0-1)."
-msgstr "Βήματα σε κάθε πάτημα πλήκτρου (τιμές μεταξύ 0-1)."
-
-#: src/prefs.js:139
-msgid "Side Tiling Steps"
-msgstr "Βήματα πλευρικής παράθεσης"
-
-#: src/prefs.js:152
-msgid "Enable Linked Window Resize"
-msgstr "Ενεργοποίηση συνδεδεμένης αλλαγής μεγέθους παραθύρου"
-
-#: src/prefs.js:153
-msgid "When holding Alt and resizing a window, adjacent tiled windows will resize together to maintain the gap."
-msgstr "Όταν κρατάτε πατημένο το Alt και αλλάζετε το μέγεθος ενός παραθύρου, τα γειτονικά παρατιθέμενα παράθυρα θα αλλάζουν μέγεθος μαζί για να διατηρηθεί το κενό."
-
-#: src/prefs.js:165
-msgid "Use theme accent color"
-msgstr "Χρήση χρώματος έμφασης θέματος"
-
-#: src/prefs.js:169
-msgid "Linked Resize Glow Color"
-msgstr "Χρώμα λάμψης συνδεδεμένης αλλαγής μεγέθους"
-
-#: src/prefs.js:170
-msgid "Custom color for the glow effect during linked resize (hex format like #3584e4). Leave empty to use theme accent color."
-msgstr "Προσαρμοσμένο χρώμα για το εφέ λάμψης κατά τη διάρκεια της συνδεδεμένης αλλαγής μεγέθους (μορφή hex όπως #3584e4). Αφήστε το κενό για να χρησιμοποιήσετε το χρώμα έμφασης του θέματος."
-
-#: src/prefs.js:199
-msgid "Use Pixels for Gap Size"
-msgstr "Χρήση Pixel για το μέγεθος κενού"
-
-#: src/prefs.js:200
-msgid "Use pixels instead of percentage for gap size."
-msgstr "Χρήση pixel αντί για ποσοστό για το μέγεθος κενού."
-
-#: src/prefs.js:211
-msgid "Gaps Between Windows"
-msgstr "Κενά μεταξύ παραθύρων"
-
-#: src/prefs.js:212
-msgid "Put gaps between windows."
-msgstr "Τοποθέτηση κενών μεταξύ των παραθύρων."
-
-#: src/prefs.js:223
-msgid "Enable Individual Gap Sizes"
-msgstr "Ενεργοποίηση μεμονωμένων μεγεθών κενού"
-
-#: src/prefs.js:224
-msgid "Configure separate gap sizes for each side (top, left, bottom, right) and between windows."
-msgstr "Διαμορφώστε ξεχωριστά μεγέθη κενού για κάθε πλευρά (πάνω, αριστερά, κάτω, δεξιά) και μεταξύ των παραθύρων."
-
-#: src/prefs.js:235
-msgid "Top Gap Size"
-msgstr "Μέγεθος πάνω κενού"
-
-#: src/prefs.js:236
-msgid "Gap size at the top (percent)."
-msgstr "Μέγεθος κενού στην κορυφή (ποσοστό)."
-
-#: src/prefs.js:252
-msgid "Left Gap Size"
-msgstr "Μέγεθος αριστερού κενού"
-
-#: src/prefs.js:253
-msgid "Gap size at the left (percent)."
-msgstr "Μέγεθος κενού στα αριστερά (ποσοστό)."
-
-#: src/prefs.js:269
-msgid "Right Gap Size"
-msgstr "Μέγεθος δεξιού κενού"
-
-#: src/prefs.js:270
-msgid "Gap size at the right (percent)."
-msgstr "Μέγεθος κενού στα δεξιά (ποσοστό)."
-
-#: src/prefs.js:286 src/prefs.js:425
-msgid "Bottom Gap Size"
-msgstr "Μέγεθος κάτω κενού"
-
-#: src/prefs.js:287
-msgid "Gap size at the bottom (percent)."
-msgstr "Μέγεθος κενού στο κάτω μέρος (ποσοστό)."
-
-#: src/prefs.js:303
-msgid "Inner Gap Size"
-msgstr "Εσωτερικό μέγεθος κενού"
-
-#: src/prefs.js:304
-msgid "Gap size between windows (percent)."
-msgstr "Μέγεθος κενού μεταξύ παραθύρων (ποσοστό)."
-
-#: src/prefs.js:339
-msgid "pixels"
-msgstr "pixel"
-
-#: src/prefs.js:339
-msgid "percent"
-msgstr "τοις εκατό"
-
-#: src/prefs.js:340
-msgid "Gap size at the top"
-msgstr "Μέγεθος κενού στην κορυφή"
-
-#: src/prefs.js:341
-msgid "Gap size at the left"
-msgstr "Μέγεθος κενού στα αριστερά"
-
-#: src/prefs.js:342
-msgid "Gap size at the right"
-msgstr "Μέγεθος κενού στα δεξιά"
-
-#: src/prefs.js:343
-msgid "Gap size at the bottom"
-msgstr "Μέγεθος κενού στο κάτω μέρος"
-
-#: src/prefs.js:344
-msgid "Gap size between windows"
-msgstr "Μέγεθος κενού μεταξύ παραθύρων"
-
-#: src/prefs.js:357
-msgid "Gap Between Window and Workspace"
-msgstr "Κενό μεταξύ παραθύρου και χώρου εργασίας"
-
-#: src/prefs.js:358 src/prefs.js:378
-msgid "Percentage to leave out as gap when a window is tiled."
-msgstr "Ποσοστό που θα μείνει ως κενό όταν ένα παράθυρο παρατίθεται."
-
-#: src/prefs.js:377
-msgid "Pixels to leave out as gap when a window is tiled."
-msgstr "Pixel που θα μείνουν ως κενό όταν ένα παράθυρο παρατίθεται."
-
-#: src/prefs.js:388
-msgid "Gap Size Increments"
-msgstr "Προσαυξήσεις μεγέθους κενού"
-
-#: src/prefs.js:389
-msgid "The change that the shorcuts make in the gap size."
-msgstr "Η αλλαγή που κάνουν οι συντομεύσεις στο μέγεθος του κενού."
-
-#: src/prefs.js:413
-msgid "Enable Additional Bottom Gap"
-msgstr "Ενεργοποίηση πρόσθετου κάτω κενού"
-
-#: src/prefs.js:414
-msgid "Add an additional gap at the bottom of the screen to prevent dock overlap."
-msgstr "Προσθέστε ένα επιπλέον κενό στο κάτω μέρος της οθόνης για να αποτρέψετε την επικάλυψη του dock."
-
-#: src/prefs.js:426 src/prefs.js:445
-msgid "Additional gap size at the bottom of the screen in percentage."
-msgstr "Πρόσθετο μέγεθος κενού στο κάτω μέρος της οθόνης σε ποσοστό."
-
-#: src/prefs.js:444
-msgid "Additional gap size at the bottom of the screen in pixels."
-msgstr "Πρόσθετο μέγεθος κενού στο κάτω μέρος της οθόνης σε pixel."
-
-#: src/prefs.js:453
-msgid "Bottom Gap Main Screen Only"
-msgstr "Κάτω κενό μόνο στην κύρια οθόνη"
-
-#: src/prefs.js:454
-msgid "Apply the additional bottom gap only on the main screen."
-msgstr "Εφαρμογή του πρόσθετου κάτω κενού μόνο στην κύρια οθόνη."
-
-#: src/prefs.js:478
-msgid "Assign shortcuts to the functionalities"
-msgstr "Αντιστοίχιση συντομεύσεων στις λειτουργίες"
-
-#: src/prefs.js:483 src/prefs.js:755
-msgid "Fix Numpad 9 and Numpad 3"
-msgstr "Διόρθωση Numpad 9 και Numpad 3"
-
-#: src/prefs.js:487
-msgid "Numpad Tiling Fix"
-msgstr "Διόρθωση παράθεσης Numpad"
-
-#: src/prefs.js:488
-msgid "Resolve workspace switching shortcut conflicts on certain keyboards by overriding system defaults to match extension settings."
-msgstr "Επιλύστε τις συγκρούσεις συντομεύσεων εναλλαγής χώρου εργασίας σε ορισμένα πληκτρολόγια παρακάμπτοντας τις προεπιλογές του συστήματος ώστε να ταιριάζουν με τις ρυθμίσεις της επέκτασης."
-
-#: src/prefs.js:499
-msgid "Linked Resize Modifier"
-msgstr "Τροποποιητής συνδεδεμένης αλλαγής μεγέθους"
-
-#: src/prefs.js:500
-msgid "The modifier key held while resizing to trigger linked resizing."
-msgstr "Το πλήκτρο τροποποίησης που κρατείται κατά την αλλαγή μεγέθους για ενεργοποίηση συνδεδεμένης αλλαγής μεγέθους."
-
-#: src/prefs.js:512
-msgid "Switch to Workspace Left"
-msgstr "Μετάβαση στον αριστερό χώρο εργασίας"
-
-#: src/prefs.js:513
-msgid "Shortcut to switch to the workspace on the left."
-msgstr "Συντόμευση για μετάβαση στον χώρο εργασίας στα αριστερά."
-
-#: src/prefs.js:523
-msgid "Switch to Workspace Right"
-msgstr "Μετάβαση στον δεξιό χώρο εργασίας"
-
-#: src/prefs.js:524
-msgid "Shortcut to switch to the workspace on the right."
-msgstr "Συντόμευση για μετάβαση στον χώρο εργασίας στα δεξιά."
-
-#: src/prefs.js:534
-msgid "Move Window to Workspace Left"
-msgstr "Μετακίνηση παραθύρου στον αριστερό χώρο εργασίας"
-
-#: src/prefs.js:535
-msgid "Shortcut to move the focused window to the workspace on the left."
-msgstr "Συντόμευση για μετακίνηση του επιλεγμένου παραθύρου στον χώρο εργασίας στα αριστερά."
-
-#: src/prefs.js:545
-msgid "Move Window to Workspace Right"
-msgstr "Μετακίνηση παραθύρου στον δεξιό χώρο εργασίας"
-
-#: src/prefs.js:546
-msgid "Shortcut to move the focused window to the workspace on the right."
-msgstr "Συντόμευση για μετακίνηση του επιλεγμένου παραθύρου στον χώρο εργασίας στα δεξιά."
-
-#: src/prefs.js:572
-msgid "Align Window to Center"
-msgstr "Ευθυγράμμιση παραθύρου στο κέντρο"
-
-#: src/prefs.js:573
-msgid "Shortcut to align the active window to center without resizing it."
-msgstr "Συντόμευση για ευθυγράμμιση του ενεργού παραθύρου στο κέντρο χωρίς αλλαγή μεγέθους."
-
-#: src/prefs.js:583
+#: src/panelIndicator.js:74
+msgid "Gnockoff Tiles"
+msgstr "Gnockoff Tiles"
+
+#: src/panelIndicator.js:104
+msgid "Settings…"
+msgstr "Ρυθμίσεις…"
+
+#: src/panelIndicator.js:107
+msgid "Align to Center (No Resize)"
+msgstr "Στοίχιση στο κέντρο (χωρίς αλλαγή μεγέθους)"
+
+#: src/panelIndicator.js:108
+msgid "Maximize"
+msgstr "Μεγιστοποίηση"
+
+#: src/panelIndicator.js:111
+msgid "Half Width, Move Left"
+msgstr "Μισό πλάτος, μετακίνηση αριστερά"
+
+#: src/panelIndicator.js:112
+msgid "Half Width, Move Right"
+msgstr "Μισό πλάτος, μετακίνηση δεξιά"
+
+#: src/panelIndicator.js:115
+msgid "Top Left"
+msgstr "Πάνω αριστερά"
+
+#: src/panelIndicator.js:116
+msgid "Top Right"
+msgstr "Πάνω δεξιά"
+
+#: src/panelIndicator.js:117
+msgid "Bottom Left"
+msgstr "Κάτω αριστερά"
+
+#: src/panelIndicator.js:118
+msgid "Bottom Right"
+msgstr "Κάτω δεξιά"
+
+#: src/panelIndicator.js:121
+msgid "Third Width, Move Left"
+msgstr "Ένα τρίτο πλάτος, μετακίνηση αριστερά"
+
+#: src/panelIndicator.js:122
+msgid "Third Width, Move Right"
+msgstr "Ένα τρίτο πλάτος, μετακίνηση δεξιά"
+
+#: src/panelIndicator.js:123
+msgid "Two-Thirds Width, Move Left"
+msgstr "Δύο τρίτα πλάτος, μετακίνηση αριστερά"
+
+#: src/panelIndicator.js:124
+msgid "Two-Thirds Width, Move Right"
+msgstr "Δύο τρίτα πλάτος, μετακίνηση δεξιά"
+
+#: src/panelIndicator.js:127 src/prefs.js:571
 msgid "Increase Gap Size"
 msgstr "Αύξηση μεγέθους κενού"
 
-#: src/prefs.js:584
-msgid "Shortcut to increase the gap size."
-msgstr "Συντόμευση για αύξηση του μεγέθους κενού."
-
-#: src/prefs.js:594
+#: src/panelIndicator.js:128 src/prefs.js:582
 msgid "Decrease Gap Size"
 msgstr "Μείωση μεγέθους κενού"
 
-#: src/prefs.js:595
+#: src/prefs.js:56 src/prefs.js:88
+msgid "Behavior"
+msgstr "Συμπεριφορά"
+
+#: src/prefs.js:65 src/prefs.js:180
+msgid "Gaps"
+msgstr "Κενά"
+
+#: src/prefs.js:74 src/prefs.js:462
+msgid "Shortcuts"
+msgstr "Συντομεύσεις"
+
+#: src/prefs.js:92
+msgid "Enable Window Animations"
+msgstr "Ενεργοποίηση κινήσεων παραθύρου"
+
+#: src/prefs.js:93
+msgid "Animate windows when resized or repositioned (this may be buggy on Wayland)."
+msgstr "Κίνηση παραθύρων κατά την αλλαγή μεγέθους ή την επανατοποθέτηση (αυτό μπορεί να παρουσιάζει σφάλματα στο Wayland)."
+
+#: src/prefs.js:104
+msgid "Shortcut Iteration Timeout in Milliseconds"
+msgstr "Χρονικό όριο επανάληψης συντόμευσης σε χιλιοστά του δευτερολέπτου"
+
+#: src/prefs.js:105
+msgid "The time window to consider a new key press an iteration."
+msgstr "Το χρονικό παράθυρο για να θεωρηθεί ένα νέο πάτημα πλήκτρου ως επανάληψη."
+
+#: src/prefs.js:124
+msgid "Corner Tiling Steps"
+msgstr "Βήματα παράθεσης στις γωνίες"
+
+#: src/prefs.js:125
+msgid "Steps on each key press (values between 0-1)."
+msgstr "Βήματα σε κάθε πάτημα πλήκτρου (τιμές μεταξύ 0-1)."
+
+#: src/prefs.js:137
+msgid "Enable Linked Window Resize"
+msgstr "Ενεργοποίηση συνδεδεμένης αλλαγής μεγέθους παραθύρου"
+
+#: src/prefs.js:138
+msgid "When holding Alt and resizing a window, adjacent tiled windows will resize together to maintain the gap."
+msgstr "Όταν κρατάτε πατημένο το Alt και αλλάζετε το μέγεθος ενός παραθύρου, τα γειτονικά παρατιθέμενα παράθυρα θα αλλάζουν μέγεθος μαζί για να διατηρηθεί το κενό."
+
+#: src/prefs.js:150
+msgid "Use theme accent color"
+msgstr "Χρήση χρώματος έμφασης θέματος"
+
+#: src/prefs.js:154
+msgid "Linked Resize Glow Color"
+msgstr "Χρώμα λάμψης συνδεδεμένης αλλαγής μεγέθους"
+
+#: src/prefs.js:155
+msgid "Custom color for the glow effect during linked resize (hex format like #3584e4). Leave empty to use theme accent color."
+msgstr "Προσαρμοσμένο χρώμα για το εφέ λάμψης κατά τη διάρκεια της συνδεδεμένης αλλαγής μεγέθους (μορφή hex όπως #3584e4). Αφήστε το κενό για να χρησιμοποιήσετε το χρώμα έμφασης του θέματος."
+
+#: src/prefs.js:184
+msgid "Use Pixels for Gap Size"
+msgstr "Χρήση Pixel για το μέγεθος κενού"
+
+#: src/prefs.js:185
+msgid "Use pixels instead of percentage for gap size."
+msgstr "Χρήση pixel αντί για ποσοστό για το μέγεθος κενού."
+
+#: src/prefs.js:196
+msgid "Gaps Between Windows"
+msgstr "Κενά μεταξύ παραθύρων"
+
+#: src/prefs.js:197
+msgid "Put gaps between windows."
+msgstr "Τοποθέτηση κενών μεταξύ των παραθύρων."
+
+#: src/prefs.js:208
+msgid "Enable Individual Gap Sizes"
+msgstr "Ενεργοποίηση μεμονωμένων μεγεθών κενού"
+
+#: src/prefs.js:209
+msgid "Configure separate gap sizes for each side (top, left, bottom, right) and between windows."
+msgstr "Διαμορφώστε ξεχωριστά μεγέθη κενού για κάθε πλευρά (πάνω, αριστερά, κάτω, δεξιά) και μεταξύ των παραθύρων."
+
+#: src/prefs.js:220
+msgid "Top Gap Size"
+msgstr "Μέγεθος πάνω κενού"
+
+#: src/prefs.js:221
+msgid "Gap size at the top (percent)."
+msgstr "Μέγεθος κενού στην κορυφή (ποσοστό)."
+
+#: src/prefs.js:237
+msgid "Left Gap Size"
+msgstr "Μέγεθος αριστερού κενού"
+
+#: src/prefs.js:238
+msgid "Gap size at the left (percent)."
+msgstr "Μέγεθος κενού στα αριστερά (ποσοστό)."
+
+#: src/prefs.js:254
+msgid "Right Gap Size"
+msgstr "Μέγεθος δεξιού κενού"
+
+#: src/prefs.js:255
+msgid "Gap size at the right (percent)."
+msgstr "Μέγεθος κενού στα δεξιά (ποσοστό)."
+
+#: src/prefs.js:271 src/prefs.js:410
+msgid "Bottom Gap Size"
+msgstr "Μέγεθος κάτω κενού"
+
+#: src/prefs.js:272
+msgid "Gap size at the bottom (percent)."
+msgstr "Μέγεθος κενού στο κάτω μέρος (ποσοστό)."
+
+#: src/prefs.js:288
+msgid "Inner Gap Size"
+msgstr "Εσωτερικό μέγεθος κενού"
+
+#: src/prefs.js:289
+msgid "Gap size between windows (percent)."
+msgstr "Μέγεθος κενού μεταξύ παραθύρων (ποσοστό)."
+
+#: src/prefs.js:324
+msgid "pixels"
+msgstr "pixel"
+
+#: src/prefs.js:324
+msgid "percent"
+msgstr "τοις εκατό"
+
+#: src/prefs.js:325
+msgid "Gap size at the top"
+msgstr "Μέγεθος κενού στην κορυφή"
+
+#: src/prefs.js:326
+msgid "Gap size at the left"
+msgstr "Μέγεθος κενού στα αριστερά"
+
+#: src/prefs.js:327
+msgid "Gap size at the right"
+msgstr "Μέγεθος κενού στα δεξιά"
+
+#: src/prefs.js:328
+msgid "Gap size at the bottom"
+msgstr "Μέγεθος κενού στο κάτω μέρος"
+
+#: src/prefs.js:329
+msgid "Gap size between windows"
+msgstr "Μέγεθος κενού μεταξύ παραθύρων"
+
+#: src/prefs.js:342
+msgid "Gap Between Window and Workspace"
+msgstr "Κενό μεταξύ παραθύρου και χώρου εργασίας"
+
+#: src/prefs.js:343 src/prefs.js:363
+msgid "Percentage to leave out as gap when a window is tiled."
+msgstr "Ποσοστό που θα μείνει ως κενό όταν ένα παράθυρο παρατίθεται."
+
+#: src/prefs.js:362
+msgid "Pixels to leave out as gap when a window is tiled."
+msgstr "Pixel που θα μείνουν ως κενό όταν ένα παράθυρο παρατίθεται."
+
+#: src/prefs.js:373
+msgid "Gap Size Increments"
+msgstr "Προσαυξήσεις μεγέθους κενού"
+
+#: src/prefs.js:374
+msgid "The change that the shorcuts make in the gap size."
+msgstr "Η αλλαγή που κάνουν οι συντομεύσεις στο μέγεθος του κενού."
+
+#: src/prefs.js:398
+msgid "Enable Additional Bottom Gap"
+msgstr "Ενεργοποίηση πρόσθετου κάτω κενού"
+
+#: src/prefs.js:399
+msgid "Add an additional gap at the bottom of the screen to prevent dock overlap."
+msgstr "Προσθέστε ένα επιπλέον κενό στο κάτω μέρος της οθόνης για να αποτρέψετε την επικάλυψη του dock."
+
+#: src/prefs.js:411 src/prefs.js:430
+msgid "Additional gap size at the bottom of the screen in percentage."
+msgstr "Πρόσθετο μέγεθος κενού στο κάτω μέρος της οθόνης σε ποσοστό."
+
+#: src/prefs.js:429
+msgid "Additional gap size at the bottom of the screen in pixels."
+msgstr "Πρόσθετο μέγεθος κενού στο κάτω μέρος της οθόνης σε pixel."
+
+#: src/prefs.js:438
+msgid "Bottom Gap Main Screen Only"
+msgstr "Κάτω κενό μόνο στην κύρια οθόνη"
+
+#: src/prefs.js:439
+msgid "Apply the additional bottom gap only on the main screen."
+msgstr "Εφαρμογή του πρόσθετου κάτω κενού μόνο στην κύρια οθόνη."
+
+#: src/prefs.js:463
+msgid "Assign shortcuts to the functionalities"
+msgstr "Αντιστοίχιση συντομεύσεων στις λειτουργίες"
+
+#: src/prefs.js:467
+msgid "Override System Workspace Shortcuts"
+msgstr "Παράκαμψη συντομεύσεων χώρων εργασίας του συστήματος"
+
+#: src/prefs.js:468
+msgid "Replace GNOME's built-in workspace switching and moving shortcuts with the ones configured below. The originals are restored when the override is turned off or the extension is disabled."
+msgstr "Αντικαθιστά τις ενσωματωμένες συντομεύσεις του GNOME για εναλλαγή χώρων εργασίας και μετακίνηση παραθύρων με αυτές που ρυθμίζονται παρακάτω. Οι αρχικές επαναφέρονται όταν απενεργοποιηθεί η παράκαμψη ή η επέκταση."
+
+#: src/prefs.js:478
+msgid "Linked Resize Modifier"
+msgstr "Τροποποιητής συνδεδεμένης αλλαγής μεγέθους"
+
+#: src/prefs.js:479
+msgid "The modifier key held while resizing to trigger linked resizing."
+msgstr "Το πλήκτρο τροποποίησης που κρατείται κατά την αλλαγή μεγέθους για ενεργοποίηση συνδεδεμένης αλλαγής μεγέθους."
+
+#: src/prefs.js:489
+msgid "Switch to Workspace Left"
+msgstr "Μετάβαση στον αριστερό χώρο εργασίας"
+
+#: src/prefs.js:490
+msgid "Shortcut to switch to the workspace on the left."
+msgstr "Συντόμευση για μετάβαση στον χώρο εργασίας στα αριστερά."
+
+#: src/prefs.js:500
+msgid "Switch to Workspace Right"
+msgstr "Μετάβαση στον δεξιό χώρο εργασίας"
+
+#: src/prefs.js:501
+msgid "Shortcut to switch to the workspace on the right."
+msgstr "Συντόμευση για μετάβαση στον χώρο εργασίας στα δεξιά."
+
+#: src/prefs.js:511
+msgid "Move Window to Workspace Left"
+msgstr "Μετακίνηση παραθύρου στον αριστερό χώρο εργασίας"
+
+#: src/prefs.js:512
+msgid "Shortcut to move the focused window to the workspace on the left."
+msgstr "Συντόμευση για μετακίνηση του επιλεγμένου παραθύρου στον χώρο εργασίας στα αριστερά."
+
+#: src/prefs.js:522
+msgid "Move Window to Workspace Right"
+msgstr "Μετακίνηση παραθύρου στον δεξιό χώρο εργασίας"
+
+#: src/prefs.js:523
+msgid "Shortcut to move the focused window to the workspace on the right."
+msgstr "Συντόμευση για μετακίνηση του επιλεγμένου παραθύρου στον χώρο εργασίας στα δεξιά."
+
+#: src/prefs.js:549
+msgid "Align Window to Center"
+msgstr "Ευθυγράμμιση παραθύρου στο κέντρο"
+
+#: src/prefs.js:550
+msgid "Shortcut to align the active window to center without resizing it."
+msgstr "Συντόμευση για ευθυγράμμιση του ενεργού παραθύρου στο κέντρο χωρίς αλλαγή μεγέθους."
+
+#: src/prefs.js:560
+msgid "Maximize Window"
+msgstr "Μεγιστοποίηση παραθύρου"
+
+#: src/prefs.js:561
+msgid "Shortcut to resize the active window to fill the workspace, respecting the configured gaps."
+msgstr "Συντόμευση για αλλαγή μεγέθους του ενεργού παραθύρου ώστε να γεμίσει τον χώρο εργασίας, τηρώντας τα ρυθμισμένα κενά."
+
+#: src/prefs.js:572
+msgid "Shortcut to increase the gap size."
+msgstr "Συντόμευση για αύξηση του μεγέθους κενού."
+
+#: src/prefs.js:583
 msgid "Shortcut to decrease the gap size."
 msgstr "Συντόμευση για μείωση του μεγέθους κενού."
 
-#: src/prefs.js:605
-msgid "Tile Window to Center"
-msgstr "Παράθεση παραθύρου στο κέντρο"
-
-#: src/prefs.js:606
-msgid "Shortcut to tile active window to center."
-msgstr "Συντόμευση για παράθεση του ενεργού παραθύρου στο κέντρο."
-
-#: src/prefs.js:616
-msgid "Tile Window to Left"
-msgstr "Παράθεση παραθύρου στα αριστερά"
-
-#: src/prefs.js:617
-msgid "Shortcut to tile the active window to left."
-msgstr "Συντόμευση για παράθεση του ενεργού παραθύρου στα αριστερά."
-
-#: src/prefs.js:627
-msgid "Tile Window to Right"
-msgstr "Παράθεση παραθύρου στα δεξιά"
-
-#: src/prefs.js:628
-msgid "Shortcut to tile the active window to right."
-msgstr "Συντόμευση για παράθεση του ενεργού παραθύρου στα δεξιά."
-
-#: src/prefs.js:638
-msgid "Tile Window to Top"
-msgstr "Παράθεση παραθύρου στην κορυφή"
-
-#: src/prefs.js:639
-msgid "Shortcut to tile the active window to top."
-msgstr "Συντόμευση για παράθεση του ενεργού παραθύρου στην κορυφή."
-
-#: src/prefs.js:649
-msgid "Tile Window to Bottom"
-msgstr "Παράθεση παραθύρου στο κάτω μέρος"
-
-#: src/prefs.js:650
-msgid "Shortcut to tile the active window to bottom."
-msgstr "Συντόμευση για παράθεση του ενεργού παραθύρου στο κάτω μέρος."
-
-#: src/prefs.js:660
+#: src/prefs.js:593
 msgid "Tile Window to Top Left"
 msgstr "Παράθεση παραθύρου πάνω αριστερά"
 
-#: src/prefs.js:661
+#: src/prefs.js:594
 msgid "Shortcut to tile the active window to top left."
 msgstr "Συντόμευση για παράθεση του ενεργού παραθύρου πάνω αριστερά."
 
-#: src/prefs.js:671
+#: src/prefs.js:604
 msgid "Tile Window to Top Right"
 msgstr "Παράθεση παραθύρου πάνω δεξιά"
 
-#: src/prefs.js:672
+#: src/prefs.js:605
 msgid "Shortcut to tile the active window to top right."
 msgstr "Συντόμευση για παράθεση του ενεργού παραθύρου πάνω δεξιά."
 
-#: src/prefs.js:683
+#: src/prefs.js:616
 msgid "Tile Window to Bottom Left"
 msgstr "Παράθεση παραθύρου κάτω αριστερά"
 
-#: src/prefs.js:684
+#: src/prefs.js:617
 msgid "Shortcut to tile the active window to bottom left."
 msgstr "Συντόμευση για παράθεση του ενεργού παραθύρου κάτω αριστερά."
 
-#: src/prefs.js:694
+#: src/prefs.js:627
 msgid "Tile Window to Bottom Right"
 msgstr "Παράθεση παραθύρου κάτω δεξιά"
 
-#: src/prefs.js:695
+#: src/prefs.js:628
 msgid "Shortcut to tile the active window to bottom right."
 msgstr "Συντόμευση για παράθεση του ενεργού παραθύρου κάτω δεξιά."
 
-#: src/prefs.js:743
+#: src/prefs.js:636
+msgid "Move Third-Width Column Left"
+msgstr "Μετακίνηση στήλης ενός τρίτου αριστερά"
+
+#: src/prefs.js:637
+msgid "Make the window a third of the screen wide at full height and move it left through the left, center, and right positions."
+msgstr "Κάνει το παράθυρο ένα τρίτο του πλάτους της οθόνης σε πλήρες ύψος και το μετακινεί αριστερά μέσα από τις θέσεις αριστερά, κέντρο και δεξιά."
+
+#: src/prefs.js:641
+msgid "Move Third-Width Column Right"
+msgstr "Μετακίνηση στήλης ενός τρίτου δεξιά"
+
+#: src/prefs.js:642
+msgid "Make the window a third of the screen wide at full height and move it right through the left, center, and right positions."
+msgstr "Κάνει το παράθυρο ένα τρίτο του πλάτους της οθόνης σε πλήρες ύψος και το μετακινεί δεξιά μέσα από τις θέσεις αριστερά, κέντρο και δεξιά."
+
+#: src/prefs.js:646
+msgid "Move Half-Width Column Left"
+msgstr "Μετακίνηση στήλης μισού πλάτους αριστερά"
+
+#: src/prefs.js:647
+msgid "Make the window half of the screen wide at full height and move it left through the left, center, and right positions."
+msgstr "Κάνει το παράθυρο μισό του πλάτους της οθόνης σε πλήρες ύψος και το μετακινεί αριστερά μέσα από τις θέσεις αριστερά, κέντρο και δεξιά."
+
+#: src/prefs.js:651
+msgid "Move Half-Width Column Right"
+msgstr "Μετακίνηση στήλης μισού πλάτους δεξιά"
+
+#: src/prefs.js:652
+msgid "Make the window half of the screen wide at full height and move it right through the left, center, and right positions."
+msgstr "Κάνει το παράθυρο μισό του πλάτους της οθόνης σε πλήρες ύψος και το μετακινεί δεξιά μέσα από τις θέσεις αριστερά, κέντρο και δεξιά."
+
+#: src/prefs.js:656
+msgid "Move Two-Thirds-Width Column Left"
+msgstr "Μετακίνηση στήλης δύο τρίτων αριστερά"
+
+#: src/prefs.js:657
+msgid "Make the window two thirds of the screen wide at full height and move it left through the left, center, and right positions."
+msgstr "Κάνει το παράθυρο δύο τρίτα του πλάτους της οθόνης σε πλήρες ύψος και το μετακινεί αριστερά μέσα από τις θέσεις αριστερά, κέντρο και δεξιά."
+
+#: src/prefs.js:661
+msgid "Move Two-Thirds-Width Column Right"
+msgstr "Μετακίνηση στήλης δύο τρίτων δεξιά"
+
+#: src/prefs.js:662
+msgid "Make the window two thirds of the screen wide at full height and move it right through the left, center, and right positions."
+msgstr "Κάνει το παράθυρο δύο τρίτα του πλάτους της οθόνης σε πλήρες ύψος και το μετακινεί δεξιά μέσα από τις θέσεις αριστερά, κέντρο και δεξιά."
+
+#: src/prefs.js:720
 msgid "Disabled"
 msgstr "Απενεργοποιημένο"
 
-#: src/prefs.js:756
-msgid "Default workspace shortcuts (Super + Page Up/Down) conflict with this extension on keyboards where Numpad 9 and 3 share those keys. Enabling this fix overrides system defaults to ensure proper numpad tiling."
-msgstr "Οι προεπιλεγμένες συντομεύσεις χώρου εργασίας (Super + Page Up/Down) συγκρούονται με αυτήν την επέκταση σε πληκτρολόγια όπου το Numpad 9 και 3 μοιράζονται αυτά τα πλήκτρα. Η ενεργοποίηση αυτής της διόρθωσης παρακάμπτει τις προεπιλογές του συστήματος για να εξασφαλίσει τη σωστή παράθεση Numpad."
-
-#: src/prefs.js:760
-msgid "Enable Override"
-msgstr "Ενεργοποίηση παράκαμψης"
-
-#: src/prefs.js:765
-msgid "Close"
-msgstr "Κλείσιμο"
-
-#: src/prefs.js:771
+#: src/prefs.js:731
 msgid "About"
 msgstr "Περί"
 
-#: src/prefs.js:803
-msgid "A powerful tiling manager for GNOME Shell. Precision tile windows into 9 positions using the number pad, enjoy dynamic grid sizes that cycle on repeated keystrokes, and experience seamless linked resizing for adjacent windows. Includes customizable gaps, center alignment, and integrated workspace navigation."
-msgstr "Ένας ισχυρός διαχειριστής παράθεσης για το GNOME Shell. Παραθέστε με ακρίβεια παράθυρα σε 9 θέσεις χρησιμοποιώντας το αριθμητικό πληκτρολόγιο, απολαύστε δυναμικά μεγέθη πλέγματος που εναλλάσσονται με επαναλαμβανόμενα πατήματα πλήκτρων και ζήστε απρόσκοπτη συνδεδεμένη αλλαγή μεγέθους για γειτονικά παράθυρα. Περιλαμβάνει προσαρμόσιμα κενά, κεντρική ευθυγράμμιση και ενσωματωμένη πλοήγηση στον χώρο εργασίας."
+#: src/prefs.js:763
+msgid "A knockoff of the macOS Tiles app, for GNOME. Tile windows into any corner or into third, half, or two-thirds width columns with keyboard shortcuts, cycle through grid sizes on repeated keystrokes, and resize adjacent tiled windows together. Includes customizable gaps, center alignment, and a tray menu."
+msgstr "Μια απομίμηση της εφαρμογής Tiles του macOS, για το GNOME. Παραθέστε παράθυρα με συντομεύσεις πληκτρολογίου σε οποιαδήποτε γωνία ή σε στήλες ενός τρίτου, μισού ή δύο τρίτων πλάτους, εναλλάξτε μεγέθη πλέγματος με επαναλαμβανόμενα πατήματα και αλλάξτε το μέγεθος γειτονικών παραθύρων μαζί. Περιλαμβάνει προσαρμόσιμα κενά, στοίχιση στο κέντρο και μενού στη γραμμή."
 
-#: src/prefs.js:815
-msgid "Authors"
-msgstr "Δημιουργοί"
+#: src/prefs.js:775
+msgid "Maintainer"
+msgstr "Συντηρητής"
 
-#: src/prefs.js:820
+#: src/prefs.js:790
+msgid "Upstream Authors (Awesome Tiles)"
+msgstr "Συγγραφείς αρχικού έργου (Awesome Tiles)"
+
+#: src/prefs.js:795
 msgid "Original Author"
 msgstr "Αρχικός δημιουργός"
 
-#: src/prefs.js:821
+#: src/prefs.js:796 src/prefs.js:797
 msgid "Author"
 msgstr "Δημιουργός"
 
-#: src/prefs.js:838
-msgid "Contributors"
-msgstr "Συντελεστές"
+#: src/prefs.js:814
+msgid "Upstream Contributors (Awesome Tiles)"
+msgstr "Συνεισφέροντες αρχικού έργου (Awesome Tiles)"
 
 #: src/prefs.js:844
-msgid "Contributor"
-msgstr "Συντελεστής"
-
-#: src/prefs.js:869
 msgid "Links"
 msgstr "Σύνδεσμοι"
 
-#: src/prefs.js:874
+#: src/prefs.js:849
 msgid "GitHub Repository"
 msgstr "Αποθετήριο GitHub"
 
-#: src/prefs.js:884
-msgid "GNOME Extensions Page"
-msgstr "Σελίδα επεκτάσεων GNOME"
+#: src/prefs.js:863
+msgid "Upstream Project (Awesome Tiles)"
+msgstr "Αρχικό έργο (Awesome Tiles)"
 
 #: src/prefs-shortcut-dialog.ui:19
 msgid "Press your keyboard shortcut or 'Backspace' to disable..."

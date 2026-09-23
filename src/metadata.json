@@ -1,5 +1,5 @@
 {
-  "description": "A knockoff of the macOS Tiles app, for GNOME. Tile windows into columns or into 9 positions using the number pad, cycle through grid sizes on repeated keystrokes, and resize adjacent tiled windows together. Includes customizable gaps, center alignment, and integrated workspace navigation.",
+  "description": "A knockoff of the macOS Tiles app, for GNOME. Tile windows into any corner or into third, half, or two-thirds width columns with keyboard shortcuts, cycle through grid sizes on repeated keystrokes, and resize adjacent tiled windows together. Includes customizable gaps, center alignment, and a tray menu.",
   "gettext-domain": "gnockoff-tiles@episode6.com",
   "name": "Gnockoff Tiles",
   "settings-schema": "org.gnome.shell.extensions.gnockoff-tiles",

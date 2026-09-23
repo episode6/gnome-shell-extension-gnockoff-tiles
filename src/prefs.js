@@ -463,18 +463,12 @@ export default class GnockoffTilesPreferences extends ExtensionPreferences {
       description: _('Assign shortcuts to the functionalities'),
     })
 
-    const numpadFixButton = new Gtk.Button({
-      icon_name: 'dialog-warning-symbolic',
-      label: _('Fix Numpad 9 and Numpad 3'),
-      valign: Gtk.Align.CENTER,
+    const overrideWorkspaceSwitchRow = new Adw.SwitchRow({
+      title: _('Override System Workspace Shortcuts'),
+      subtitle: _('Replace GNOME\'s built-in workspace switching and moving shortcuts with the ones configured below. The originals are restored when the override is turned off or the extension is disabled.'),
     })
-    const numpadFixActionRow = new Adw.ActionRow({
-      title: _('Numpad Tiling Fix'),
-      subtitle: _('Resolve workspace switching shortcut conflicts on certain keyboards by overriding system defaults to match extension settings.'),
-      activatable_widget: numpadFixButton,
-    })
-    numpadFixActionRow.add_suffix(numpadFixButton)
-    shortcutsGroup.add(numpadFixActionRow)
+    settings.bind('override-system-keybindings', overrideWorkspaceSwitchRow, 'active', Gio.SettingsBindFlags.DEFAULT)
+    shortcutsGroup.add(overrideWorkspaceSwitchRow)
 
     const linkedResizeShortcutButton = new Gtk.Button({
       name: 'shortcut-linked-resize',
@@ -486,8 +480,6 @@ export default class GnockoffTilesPreferences extends ExtensionPreferences {
     })
     linkedResizeShortcutActionRow.add_suffix(linkedResizeShortcutButton)
     shortcutsGroup.add(linkedResizeShortcutActionRow)
-
-    numpadFixButton.connect('clicked', this._onShowNumpadFixDialog.bind(this, window, settings))
 
     const workspaceSwitchLeftButton = new Gtk.Button({
       name: 'shortcut-workspace-switch-left',
@@ -734,23 +726,6 @@ export default class GnockoffTilesPreferences extends ExtensionPreferences {
     })
   }
 
-  _onShowNumpadFixDialog(window, settings) {
-    const dialog = new Adw.MessageDialog({
-      transient_for: window,
-      heading: _('Fix Numpad 9 and Numpad 3'),
-      body: _('Default workspace shortcuts (Super + Page Up/Down) conflict with this extension on keyboards where Numpad 9 and 3 share those keys. Enabling this fix overrides system defaults to ensure proper numpad tiling.'),
-    })
-
-    const switchRow = new Adw.SwitchRow({
-      title: _('Enable Override'),
-    })
-    settings.bind('override-system-keybindings', switchRow, 'active', Gio.SettingsBindFlags.DEFAULT)
-
-    dialog.set_extra_child(switchRow)
-    dialog.add_response('close', _('Close'))
-    dialog.present()
-  }
-
   _createAboutPage() {
     const aboutPage = new Adw.PreferencesPage({
       title: _('About'),
@@ -785,7 +760,7 @@ export default class GnockoffTilesPreferences extends ExtensionPreferences {
     iconBox.append(nameLabel)
 
     const descriptionLabel = new Gtk.Label({
-      label: _('A knockoff of the macOS Tiles app, for GNOME. Tile windows into columns or into the four corners, cycle through grid sizes on repeated keystrokes, and resize adjacent tiled windows together. Includes customizable gaps, center alignment, and integrated workspace navigation.'),
+      label: _('A knockoff of the macOS Tiles app, for GNOME. Tile windows into any corner or into third, half, or two-thirds width columns with keyboard shortcuts, cycle through grid sizes on repeated keystrokes, and resize adjacent tiled windows together. Includes customizable gaps, center alignment, and a tray menu.'),
       wrap: true,
       justify: Gtk.Justification.CENTER,
       max_width_chars: 60,

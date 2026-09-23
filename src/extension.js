@@ -102,8 +102,6 @@ export default class GnockoffTilesExtension extends Extension {
 
     this._clearConflictingSystemKeybindings()
 
-    this._linkedResizeHandler.enable()
-
     this._workspaceSettingsConnections = []
     DESKTOP_WM_WORKSPACE_KEYBINDINGS.forEach(binding => {
       const connection = this._settings.connect(`changed::${binding.setting}`, () => {
