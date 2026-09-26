@@ -33,20 +33,22 @@
 import Clutter from 'gi://Clutter';
 import Gio from 'gi://Gio';
 
-// GNOME 49 removed Meta.Window.get_maximized() and the Meta.MaximizeFlags
-// argument to maximize()/unmaximize(); Meta.Window.is_maximized() and the
-// set_(un)maximize_flags() setters were added in their place. The helpers
-// below feature-detect the new API so one code path serves GNOME 45 through 50.
+// Mutter 49 (src/meta/window.h) removed meta_window_get_maximized() and the
+// MetaMaximizeFlags argument to meta_window_maximize()/unmaximize(), and added
+// meta_window_is_maximized() plus set_maximize_flags()/set_unmaximize_flags()
+// in their place. None of the new methods exist on Mutter 48 or older, so the
+// presence of is_maximized() identifies the new API. The helpers below
+// feature-detect it so one code path serves GNOME 45 through 50.
 
 // Meta.MaximizeFlags.BOTH (HORIZONTAL | VERTICAL) on shells older than 49.
 const LEGACY_MAXIMIZE_FLAGS_BOTH = 3;
 
 function hasModernMaximizeApi(window) {
-    return typeof window.set_unmaximize_flags === 'function';
+    return typeof window.is_maximized === 'function';
 }
 
 function isWindowMaximized(window) {
-    if (typeof window.is_maximized === 'function') return window.is_maximized();
+    if (hasModernMaximizeApi(window)) return window.is_maximized();
     return Boolean(window.maximized_horizontally || window.maximized_vertically);
 }
 
