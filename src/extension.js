@@ -74,7 +74,7 @@ export default class GnockoffTilesExtension extends Extension {
 
     this._applyWorkspaceKeybindingsOverride()
 
-    this._settings.connect('changed::override-system-keybindings', () => {
+    this._overrideSystemKeybindingsChangedId = this._settings.connect('changed::override-system-keybindings', () => {
       if (this._settings.get_boolean('override-system-keybindings')) {
         this._applyWorkspaceKeybindingsOverride()
       } else {
@@ -129,6 +129,12 @@ export default class GnockoffTilesExtension extends Extension {
       this._workspaceSettingsConnections.forEach(({ connection }) => {
         this._settings.disconnect(connection)
       })
+      this._workspaceSettingsConnections = null
+    }
+
+    if (this._overrideSystemKeybindingsChangedId) {
+      this._settings.disconnect(this._overrideSystemKeybindingsChangedId)
+      this._overrideSystemKeybindingsChangedId = null
     }
 
     this._restoreSystemKeybindings()
@@ -136,7 +142,13 @@ export default class GnockoffTilesExtension extends Extension {
     if (this._settings.get_boolean('override-system-keybindings')) {
         this._resetWorkspaceKeybindings()
     }
-    this._shortcutsBindingIds = this._settings = this._windowMover = this._osdGapChangedIcon = this._workspaceSettingsConnections = this._linkedResizeHandler = null
+
+    this._shortcutsBindingIds = null
+    this._osdGapChangedIcon = null
+    this._windowMover = null
+    this._settings = null
+    this._ = null
+    this.ngettext = null
   }
 
   _syncWorkspaceKeybindings() {
