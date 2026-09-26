@@ -127,7 +127,7 @@ To run the development environment, you need the following packages installed on
    ```
 
 3. **Rebuilding the image**:
-   If you modify the `Dockerfile`, force a rebuild of the container image:
+   If you modify `dev/Dockerfile`, force a rebuild of the container image:
    ```bash
    ./dev/start-dev.sh rebuild
    ```
@@ -143,6 +143,12 @@ The `start-dev.sh` script includes an integrated watcher that monitors the `src/
   - Compiles `.po` files into `.mo` binaries using `msgfmt`.
 - **Hot Reload**: When a change is detected, the GNOME Shell container is automatically restarted to apply the fresh build immediately.
 
+### CI image
+
+The [CI](.github/workflows/ci.yml) and [release](.github/workflows/release.yml) jobs run inside a container image with their dependencies (gnome-shell, gettext, Node.js, …) preinstalled, so they don't install packages on every run. The image is built from [`.github/ci-image/Dockerfile`](.github/ci-image/Dockerfile) and published to GHCR as `ghcr.io/episode6/gnome-shell-extension-gnockoff-tiles/ci`, tagged with a hash of the Dockerfile.
+
+Both workflows start with the reusable [ci-image workflow](.github/workflows/ci-image.yml), which builds and pushes the image only when no image exists for the current Dockerfile hash. Editing the Dockerfile is therefore all it takes to change the image, and a PR that edits it runs its own CI against the new image. To pick up newer packages without any other change, bump `REFRESHED` in the Dockerfile. PRs from forks can't push to GHCR, so a fork PR that edits the Dockerfile fails CI until a maintainer publishes the image.
+
 ### Releasing
 
 Releases are cut by creating a GitHub release with `gh release create`, which also creates the version tag. The new tag triggers the [release workflow](.github/workflows/release.yml), which packs the extension, attaches the zip to that release, and uploads the same zip to [extensions.gnome.org](https://extensions.gnome.org) for review.
@@ -156,7 +162,7 @@ Releases are cut by creating a GitHub release with `gh release create`, which al
 
 Don't create the tag by hand with `git tag`/`git push`. Use `gh release create` so the release exists, with its title and notes, as soon as the tag does. Don't pass `--draft` either: a draft release doesn't create its tag, so the workflow never runs.
 
-The workflow fails early if the tag and the metadata version disagree. It runs inside an Ubuntu 26.04 container because the `gnome-extensions upload` subcommand first shipped with GNOME 49.
+The workflow fails early if the tag and the metadata version disagree. It runs inside the [CI image](#ci-image), which is based on Ubuntu 26.04 because the `gnome-extensions upload` subcommand first shipped with GNOME 49.
 
 The upload step signs in with the `EGO_USER` and `EGO_PASSWORD` repository secrets (extensions.gnome.org has no API tokens, so this is a real account password). Uploading only queues the version; a reviewer on extensions.gnome.org still has to approve it before it goes live.
 

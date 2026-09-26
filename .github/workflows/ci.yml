@@ -5,16 +5,30 @@ on:
     branches: [main]
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
+  image:
+    uses: ./.github/workflows/ci-image.yml
+    permissions:
+      contents: read
+      packages: write
+
   build:
+    needs: image
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
+    # Dependencies are baked into the image; see .github/ci-image/Dockerfile.
+    container:
+      image: ${{ needs.image.outputs.image }}
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ github.token }}
     steps:
       - uses: actions/checkout@v5
-
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends gnome-shell gettext libglib2.0-bin
 
       - name: Check JavaScript syntax
         run: |

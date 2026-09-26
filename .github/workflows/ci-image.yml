@@ -1,0 +1,62 @@
+name: CI image
+
+# Called by the CI and release workflows to get the container image their jobs
+# run in (built from .github/ci-image/Dockerfile). The image is tagged with a
+# hash of the Dockerfile and only built and pushed to GHCR when that tag doesn't
+# exist yet, so a PR that edits the Dockerfile builds against its own image.
+on:
+  workflow_call:
+    outputs:
+      image:
+        description: Fully qualified reference of the CI image
+        value: ${{ jobs.image.outputs.image }}
+
+jobs:
+  image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      image: ${{ steps.tag.outputs.image }}
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          sparse-checkout: .github/ci-image
+
+      - name: Compute image tag
+        id: tag
+        run: |
+          hash="$(sha256sum .github/ci-image/Dockerfile | cut -c1-16)"
+          echo "image=ghcr.io/${GITHUB_REPOSITORY,,}/ci:$hash" >> "$GITHUB_OUTPUT"
+
+      - uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4.6.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ github.token }}
+
+      - name: Check for an existing image
+        id: check
+        env:
+          IMAGE: ${{ steps.tag.outputs.image }}
+        run: |
+          if docker manifest inspect "$IMAGE" > /dev/null 2>&1; then
+            echo "Found $IMAGE"
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "No $IMAGE yet, building it"
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # v4.4.1
+        if: steps.check.outputs.exists != 'true'
+
+      - name: Build and push image
+        if: steps.check.outputs.exists != 'true'
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # v7.4.0
+        with:
+          context: .github/ci-image
+          push: true
+          tags: ${{ steps.tag.outputs.image }}
+          labels: org.opencontainers.image.source=${{ github.server_url }}/${{ github.repository }}
