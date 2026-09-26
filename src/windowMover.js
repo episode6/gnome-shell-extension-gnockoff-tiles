@@ -32,7 +32,31 @@
 
 import Clutter from 'gi://Clutter';
 import Gio from 'gi://Gio';
-import Meta from 'gi://Meta';
+
+// GNOME 49 removed Meta.Window.get_maximized() and the Meta.MaximizeFlags
+// argument to maximize()/unmaximize(); Meta.Window.is_maximized() and the
+// set_(un)maximize_flags() setters were added in their place. The helpers
+// below feature-detect the new API so one code path serves GNOME 45 through 50.
+
+// Meta.MaximizeFlags.BOTH (HORIZONTAL | VERTICAL) on shells older than 49.
+const LEGACY_MAXIMIZE_FLAGS_BOTH = 3;
+
+function hasModernMaximizeApi(window) {
+    return typeof window.set_unmaximize_flags === 'function';
+}
+
+function isWindowMaximized(window) {
+    if (typeof window.is_maximized === 'function') return window.is_maximized();
+    return Boolean(window.maximized_horizontally || window.maximized_vertically);
+}
+
+function unmaximizeWindow(window) {
+    if (hasModernMaximizeApi(window)) {
+        window.unmaximize();
+    } else {
+        window.unmaximize(LEGACY_MAXIMIZE_FLAGS_BOTH);
+    }
+}
 
 export class WindowMover {
     constructor() {
@@ -52,13 +76,10 @@ export class WindowMover {
         }
         const oldRect = window.get_frame_rect();
 
-        const isMaximized = (window.get_maximized && window.get_maximized() !== Meta.MaximizeFlags.NONE) ||
-                           (window.maximized_horizontally || window.maximized_vertically);
-
-        if (isMaximized) {
+        if (isWindowMaximized(window)) {
             const wasAnimationsEnabled = this._desktopSettings.get_boolean('enable-animations');
             if (wasAnimationsEnabled) this._desktopSettings.set_boolean('enable-animations', false);
-            window.unmaximize(Meta.MaximizeFlags.BOTH);
+            unmaximizeWindow(window);
             if (wasAnimationsEnabled) this._desktopSettings.set_boolean('enable-animations', true);
         }
 
