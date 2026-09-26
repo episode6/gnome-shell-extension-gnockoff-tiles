@@ -145,9 +145,9 @@ The `start-dev.sh` script includes an integrated watcher that monitors the `src/
 
 ### CI image
 
-The [CI](.github/workflows/ci.yml) and [release](.github/workflows/release.yml) jobs run inside a container image with their dependencies (gnome-shell, gettext, Node.js, …) preinstalled, so they don't install packages on every run. The image is built from [`.github/ci-image/Dockerfile`](.github/ci-image/Dockerfile) and published to GHCR as `ghcr.io/episode6/gnome-shell-extension-gnockoff-tiles/ci`, tagged with a hash of the Dockerfile.
+The [CI](.github/workflows/ci.yml) and [release](.github/workflows/release.yml) jobs run inside a container image with their dependencies (gnome-shell, gettext, Node.js, …) preinstalled, so they don't install packages on every run. The image is built from [`.github/ci-image/Dockerfile`](.github/ci-image/Dockerfile) and published to GHCR as `ghcr.io/episode6/gnome-shell-extension-gnockoff-tiles/ci`, tagged with a hash of everything in `.github/ci-image` (the build context).
 
-Both workflows start with the reusable [ci-image workflow](.github/workflows/ci-image.yml), which builds and pushes the image only when no image exists for the current Dockerfile hash. Editing the Dockerfile is therefore all it takes to change the image, and a PR that edits it runs its own CI against the new image. To pick up newer packages without any other change, bump `REFRESHED` in the Dockerfile. PRs from forks can't push to GHCR, so a fork PR that edits the Dockerfile fails CI until a maintainer publishes the image.
+Both workflows start with the reusable [ci-image workflow](.github/workflows/ci-image.yml), which builds and pushes the image only when no image exists for the current hash. Editing the Dockerfile (or anything else in `.github/ci-image`) is therefore all it takes to change the image, and a PR that edits it runs its own CI against the new image. To pick up newer packages without any other change, bump `REFRESHED` in the Dockerfile. PRs from forks can't push to GHCR, so a fork PR that changes the image fails CI until a maintainer publishes the image.
 
 ### Releasing
 
